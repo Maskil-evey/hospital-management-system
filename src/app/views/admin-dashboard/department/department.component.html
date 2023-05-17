@@ -1,0 +1,413 @@
+<div class="sidebarr text-light" #side>
+  <div class="mail text-center pb-3 w-100">
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+      alt=""
+      class="avatar img-t"
+    />
+    <h5>ADMIN</h5>
+  </div>
+
+  <div class="sidebar align-items-start d-block">
+    <a  href="/admin/dashboard"><i class="bi-speedometer2"></i> Dashboard</a>
+    <a href="/admin/doctors"><i class="bi-card-heading" routerLink="/admin/doctors"></i>Doctors</a>
+    <a href="/admin/nurses"><i class="bi-card-heading"routerLink="/admin/nurses"></i>Nurse</a>
+    <a href="/admin/patient"><i class="bi-person-heart"routerLink="/admin/patient"></i> Patients</a>
+    <a href="/admin/departments" class="active"><i class="bi-card-heading" routerLink="/admin/departments"></i>Department</a>
+    <a href="/admin/appointments"><i class="bi-card-list"routerLink="/admin/appointments"></i>Appointment List</a>
+    <div class="dropdown-sidebar">
+      <a ><i class="bi-card-heading"></i>Monitor Hospital <span class="float-end"><i class="bi-caret-down-fill"></i></span></a>
+      <div class="dropdown-sidebar-content">
+        <a href="/admin/monitor-hospital/blood-bank"><small>Blood Bank</small> </a>
+        <a href="/admin/monitor-hospital/report"><small>Report</small> </a>
+        <a ><small>Medicine</small> </a>
+        <a href="/admin/monitor-hospital/equipments"><small>Equipments</small> </a>
+        <a><small>Mail</small> </a>
+        <a><small>Settings</small> </a>
+      </div>
+    </div>
+    <a href=""><i class="bi-box-arrow-left"></i>Log Out</a>
+  </div>
+</div>
+<div class="content" #cont>
+  <div class="page-wrapper">
+    <nav class="navbar border border-bottom border-1 shadow-sm">
+      <div class="navbar-header">
+        <div class="d-block">
+          <i class="navbar-toggler-icon" (click)="toggle()"></i>
+        </div>
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          </li>
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+              <div class="dropdown">
+                <div class="dropdown-content">
+                  <a href="#"> <i class="bi-person-circle me-2"></i>Profile</a>
+                  <a href="#"><i class="bi-bell me-2"></i>Notifications</a>
+                  <a href="#"><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <br /><br />
+
+    <div class="page-content ms-3 me-2">
+      <h3>Departments</h3>
+      <p>List of departments currently in our heakthcare facility with its details, Those that are inactive should either be scrapped or remodelled..</p>
+      <div class="row mt-2 text-end">
+        <div class="col-12">
+          <button
+            class="btn rounded-5 btn-sm btn-warning"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+          >
+            <i class="bi-plus"></i> Add department
+          </button>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <!-- end of row -->
+        <div class="row mt-3 g-2" >
+          <div class="col-12 col-md-6"  *ngFor="let i of listofdepartments">
+            <div class="deprt-content shadow-sm p-3 pb-4">
+              <h3>{{i.name}}</h3>
+              <ul>
+                <li><span class="fw-bold">Description:</span> {{i.description}}</li>
+                <li><span class="fw-bold">Doctors:</span> {{i.doctors}}</li>
+                <li><span class="fw-bold">Nurses:</span> {{i.nurses}}</li>
+                <li><span class="fw-bold">Succesful Tests:</span> {{i.successfulTest}}</li>
+                <li *ngIf="i.isActive =='Active'"><p class="bg-success text-light">Active</p></li>
+                <li *ngIf="i.isActive =='Inactive'"><p class="bg-danger text-light">Not Active</p></li>
+              </ul>
+                <div class="d-flex float-end">
+                  <i class="bi bi-three-dots text-success fs-6 me-2" data-bs-target="#staticBackdrop2" (click)="select(i)" data-bs-toggle="modal" title="View More"></i>
+                  <i class="bi bi-pencil-square text-primary fs-6 me-2" title="Edit" (click)="edit(i)" data-bs-target="#staticBackdrop3" data-bs-toggle="modal" ></i>
+                  <i class="bi bi-trash text-danger fs-6" title="Delete" (click)="removeElementFromObjectArray(i)" ></i>
+
+                </div>
+            </div>
+          </div>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Create New Department
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form #patientForm="ngForm">
+          <div class="row g-2">
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Name</p>
+                <input
+                  type="text"
+                  #name="ngModel"
+                  name="name"
+                  [(ngModel)]="department.name"
+                />
+              </div>
+              <br>
+              <div class="form-fields d-flex">
+             <div class="doctors">
+              <p>Doctors</p>
+              <div class="d-flex">
+                <button  class="value-button btn-sm btn btn-secondary rounded-0" id="decrease" (click)="subtractNum()">-</button>
+                <input type="text"  #doctors="ngModel"
+                name="doctors"
+                [(ngModel)]="department.doctors" class="input bg-dark" #input />
+                <button class="value-button btn-sm btn btn-secondary rounded-0" id="increase" value="0" (click)="addNum()" >+</button>
+              </div>
+             </div>
+              <div class="nurses ms-3">
+                <p>Nurses</p>
+                <div class="d-flex">
+                  <button  class="value-button btn-sm btn btn-secondary rounded-0" id="decrease" (click)="subtractNum2()">-</button>
+                  <input type="text"  #nurses="ngModel"
+                  name="nurses"
+                  [(ngModel)]="department.nurses" class="input bg-dark" id="number" #input2 />
+                  <button class="value-button btn-sm btn btn-secondary rounded-0" id="increase" (click)="addNum2()" >+</button>
+                </div>
+              </div>
+            </div>
+
+            </div>
+            <!--  -->
+          </div>
+          <!-- end of row -->
+          <div class="row mt-2 g-2">
+            <div class="col-12">
+              <div class="form-fields">
+                <p>Description</p>
+                <textarea
+                  name="currentsymptoms"
+                  class="w-100"
+                  cols="30"
+                  #symptoms="ngModel"
+                  [(ngModel)]="department.description"
+                  rows="10"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-sm rounded-5 btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" (click)="create()" data-bs-dismiss="modal"  class="btn btn-sm rounded-5 btn-warning">
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Department Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="details">
+          <p class="fw-bold mt-2">Name:<span class="fw-light float-end">{{selectedItem.name}}</span></p>
+          <p class="fw-bold mt-2">Doctors:<span class="fw-light float-end">{{selectedItem.doctors}}</span></p>
+          <p class="fw-bold mt-2">Nurses:<span class="fw-light float-end">{{selectedItem.nurses}}</span></p>
+          <p class="fw-bold mt-2">Description:<span class="fw-light float-end">{{selectedItem.description}}</span></p>
+          <p class="fw-bold mt-2">Test Done:<span class="fw-light float-end">{{selectedItem.successfulTest}}</span></p>
+          <p class="fw-bold mt-2">Successful Surgeries Done:<span class="fw-light float-end">{{selectedItem.successfulSurgeries}}</span></p>
+          <p class="fw-bold mt-2">Unsuccessful Surgeries Done:<span class="fw-light float-end">{{selectedItem.failedSurgeries}}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Edit/Update -->
+<div
+  class="modal fade"
+  id="staticBackdrop3"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+         Update Department
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form #patientForm="ngForm">
+          <div class="row g-2">
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Name</p>
+                <input
+                  type="text"
+                  #name="ngModel"
+                  name="name"
+                  [(ngModel)]="editDepartment.name"
+                  [value]="editDepartment.name"
+                />
+              </div>
+              <br>
+              <div class="form-fields d-flex">
+             <div class="doctors">
+              <p>Doctors</p>
+              <div class="d-flex">
+                <button  class="value-button btn-sm btn btn-secondary rounded-0" id="decrease" (click)="subtractNum()">-</button>
+                <input type="text"  #doctors="ngModel"
+                name="doctors"
+                [(ngModel)]="editDepartment.doctors" class="input bg-dark" #input/>
+                <button class="value-button btn-sm btn btn-secondary rounded-0" id="increase" value="0" (click)="addNum()" >+</button>
+              </div>
+             </div>
+              <div class="nurses ms-3">
+                <p>Nurses</p>
+                <div class="d-flex">
+                  <button  class="value-button btn-sm btn btn-secondary rounded-0" id="decrease" (click)="subtractNum2()">-</button>
+                  <input type="text"  #nurses="ngModel"
+                  name="nurses"
+                  [(ngModel)]="editDepartment.nurses" class="input bg-dark" id="number" #input2 />
+                  <button class="value-button btn-sm btn btn-secondary rounded-0" id="increase" (click)="addNum2()" >+</button>
+                </div>
+              </div>
+            </div>
+            </div>
+            <br>
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Test Done</p>
+                <input
+                  type="text"
+                  #testdone="ngModel"
+                  name="testdone"
+                  [(ngModel)]="editDepartment.successfulTest"
+                />
+              </div>
+              <br>
+              <div class="form-fields">
+                <p>Successful Surgeries Done</p>
+                <input
+                  type="text"
+                  #successfulsurgeries="ngModel"
+                  name="successfulsurgeries"
+                  [(ngModel)]="editDepartment.successfulSurgeries"
+                />
+              </div>
+              <br>
+              <div class="form-fields">
+                <p>Unsuccessful Surgeries Done</p>
+                <input
+                  type="text"
+                  #unsuccessfulsurgeries="ngModel"
+                  name="unsuccessfulsurgeries"
+                  [(ngModel)]="editDepartment.failedSurgeries"
+                />
+              </div>
+            </div>
+            <!--  -->
+          </div>
+          <!-- end of row -->
+          <div class="row mt-2 g-2">
+            <div class="col-12">
+              <div class="form-fields">
+                <p>Description</p>
+                <textarea
+                  name="currentsymptoms"
+                  class="w-100"
+                  cols="30"
+                  #symptoms="ngModel"
+                  [(ngModel)]="department.description"
+                  rows="10"
+                ></textarea>
+              </div>
+
+              <br>
+
+              <div class="control">
+                <label class="radio me-2">
+                  <input type="radio" #active="ngModel" value="Active" [(ngModel)]="editDepartment.isActive" name="active">
+                Active
+                </label>
+                <label class="radio">
+                  <input type="radio" #active="ngModel" value="Inactive" [(ngModel)]="editDepartment.isActive" name="active">
+                  Inactive
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-sm rounded-5 btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" (click)="update()" data-bs-dismiss="modal"  class="btn btn-sm rounded-5 btn-warning">
+         Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="myModal" #modal class="modal-1">
+
+  <!-- Modal content -->
+  <div class="modal-content-1 rounded-1">
+    <div class="modal-header">
+      <h5 class="modal-title">Success</h5>
+      <span class="close" (click)="closeModal()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Updated!!</h4>
+        <p>Updated Successfully<p>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="myModal" #modal1 class="modal-2">
+
+<!-- Modal content -->
+<div class="modal-content-1 rounded-1">
+  <div class="modal-header">
+    <h5 class="modal-title">Success</h5>
+    <span class="close" (click)="closeModal()">&times;</span>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Created!!</h4>
+      <p>Department Created Successfully</p>
+      <hr>
+    </div>
+  </div>
+</div>
+</div>

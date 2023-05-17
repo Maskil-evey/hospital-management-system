@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300&display=swap');
+.img {
+  width: 50px;
+  height: 50px;
+  background-image: url("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/06/a8/f5/06a8f50c-5a51-4169-5051-571823512caa/AppIcon-1x_U007emarketing-0-7-0-85-220.png/230x0w.webp");
+  /* background-color: black; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 13%;
+}
+
+.container-fluid {
+  padding: 25px;
+}
+
+li a,
+li i {
+  text-transform: uppercase;
+  color: black;
+  font-weight: bold;
+}
+li * {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+li i {
+  right: 10px;
+}
+li:hover i {
+  right: 0;
+  color: #7093e5;
+
+}
+.active{
+  color: #7093e5 !important;
+}
+
+li:hover a {
+  color: #7093e5;
+}
+ul {
+  font-size: 11px;
+}
+
+button {
+  background-color: #f68685;
+  color: white;
+  border: none;
+  width: 100px;
+  height: 30px;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: 'Saira', sans-serif !important;
+}
+
+nav{
+ background-color: white;
+ height: 80px;
+ width: 100%;
+ position: fixed;
+ z-index: 1;
+ font-family: 'Saira', sans-serif !important;
+}

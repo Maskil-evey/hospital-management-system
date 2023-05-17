@@ -1,0 +1,185 @@
+<div class="page-wrapper">
+  <nav class="navbar shadow border border-bottom border-1">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div class="d-flex">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/8166/8166558.png"
+            alt="doctor"
+            class="img-icon"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasScrolling"
+            aria-controls="offcanvasScrolling"
+          />
+          <div class="img ms-5 me-2"></div>
+          <a class="navbar-brand fw-bold fs-4" href="#"
+            >Nate's <span class="fw-light">HealthCare</span></a
+          >
+        </div>
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5 mt-4">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          </li>
+
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <p class="dropbtn text-dark">
+                {{showDoctorInfo.fullname}}<span
+                  ><i class="bi-caret-down ms-2 pt-4"></i
+                ></span>
+              </p>
+              <p class="text-primary">{{showDoctorInfo.department}}</p>
+              <div class="dropdown-content">
+                <a href="#"> <i class="bi-person-circle me-2"></i>Profile</a>
+                <a href="#"><i class="bi-bell me-2"></i>Notifications</a>
+                <a href="#"><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+  class="offcanvas offcanvas-start"
+  data-bs-scroll="true"
+  data-bs-backdrop="false"
+  tabindex="-1"
+  id="offcanvasScrolling"
+  aria-labelledby="offcanvasScrollingLabel"
+>
+  <div class="offcanvas-header d-block text-center">
+    <!-- <p>Dr. Favour Daisi</p> -->
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+      alt="profile"
+      class="profile">
+
+    <button
+      type="button"
+      class="btn-close float-end"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+
+  </div>
+  <div class="pt-5">
+    <div class="mail text-center pb-3 w-100">
+      <p class="" id="offcanvasScrollingLabel">{{showDoctorInfo.fullname}}</p>
+      <p class="fw-bold">{{showDoctorInfo.department}}</p>
+
+    </div>
+    <div class="sidebar align-items-start d-block">
+      <a href="doctor/dashboard"><i class="bi-speedometer2"></i> Dashboard</a>
+      <a href="doctor/patient"><i class="bi-person"></i>Patients</a>
+       <a href="doctor/appointment"><i class="bi-card-list"></i>Appointment List</a>
+        <a href="doctor/report"  class="active"><i class="bi-card-heading"></i>Report</a>
+        <a href="#"><i class="bi-box-arrow-left"></i>Log Out</a>
+
+     </div>
+
+  </div>
+</div>
+
+  <br /><br />
+
+  <div class="page-content ms-3 me-2">
+    <div class="container-fluid">
+      <h4>Report</h4>
+      <p>Select from your assigned patients on whom to write a report on, concerning their current state of health</p>
+      <p>You can also send Test results to your patients</p>
+    </div>
+    <br><br>
+    <h4>Patients</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of doctorPatients">
+          <td><img [src]="patient.image" class="img-thumbnail" width="50" height="50"></td>
+          <td>{{patient.fullname}}</td>
+          <td>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reportModal" (click)="select(patient)">Report</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--  Report Modal -->
+    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Patient Report</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"></span>
+            </button>
+          </div>
+          <div [ngSwitch]="switch">
+            <div *ngSwitchCase="false">
+              <form #reportForm="ngForm">
+                <div class="modal-body">
+                  <div class="form-group">
+                    <div class="form-group">
+                      <img [src]="selectedPatient.image" class="img-thumbnail" width="50" height="50">
+                    </div>
+                    <label for="name">Patient Name</label>
+                    <input type="text" #patientname="ngModel" name="patientname" class="form-control" id="name" [(ngModel)]="patientReport.patientName"  [value]="selectedPatient.fullname" disabled>
+                  </div>
+                  <div class="form-group mt-3">
+                    <label for="report" class="me-2">Report Type</label>
+                   <select name="testType" id="" #testType="ngModel"  [(ngModel)]="patientReport.patientTestType" >
+                      <option value="Test Result">Test Result</option>
+                      <option value="X-Ray">X-Ray</option>
+                      <option value="Ultrasound">Ultrasound</option>
+                      <option value="MRI">MRI</option>
+                      <option value="CT Scan">CT Scan</option>
+                      <option value="ECG">ECG</option>
+                      <option value="Urine Test">Urine Test</option>
+                    <option value="Blood Test">Blood Test</option>
+                   </select>
+                  </div>
+                  <div class="form-group mt-3">
+                    <label for="report">Report</label>
+                    <textarea class="form-control" id="report" rows="3" name="desription" #report="ngModel"  [(ngModel)]="patientReport.patientTestDescription" ></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary btn-sm" [disabled]="reportForm.invalid"  (click)="submitTest()">Submit/Send Report</button>
+                </div>
+              </form>
+            </div>
+            <div *ngSwitchCase="true">
+              <div class="modal-body">
+                <div class="alert alert-success" role="alert">
+                  <h4 class="alert-heading">Well done!</h4>
+                  <p>You have successfully submitted a report for <strong>{{selectedPatient.fullname}}</strong></p>
+                  <hr>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" (click)="close()" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

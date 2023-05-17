@@ -1,0 +1,335 @@
+<div class="page-wrapper">
+  <nav class="navbar shadow border border-bottom border-1">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div class="d-flex">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/8166/8166558.png"
+            alt="doctor"
+            class="img-icon"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasScrolling"
+            aria-controls="offcanvasScrolling"
+          />
+          <div class="img ms-5 me-2"></div>
+          <a class="navbar-brand fw-bold fs-4" href="#"
+            >Nate's <span class="fw-light">HealthCare</span></a
+          >
+        </div>
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5 mt-4">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          </li>
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <p class="dropbtn text-dark">
+                {{getPatientInfo.fullname}}<span
+                  ><i class="bi-caret-down ms-2 pt-4"></i
+                ></span>
+              </p>
+              <div class="dropdown-content">
+                <a href="#"> <i class="bi-person-circle me-2"></i>Profile</a>
+                <a href="#"><i class="bi-bell me-2"></i>Notifications</a>
+                <a href="#"><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+    class="offcanvas offcanvas-start"
+    data-bs-scroll="true"
+    data-bs-backdrop="false"
+    tabindex="-1"
+    id="offcanvasScrolling"
+    aria-labelledby="offcanvasScrollingLabel"
+  >
+    <div class="offcanvas-header d-block text-center">
+      <!-- <p>Dr. Favour Daisi</p> -->
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+        alt="profile"
+        class="profile"
+      />
+
+      <button
+        type="button"
+        class="btn-close float-end"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="">
+      <div class="mail text-center pb-3 w-100">
+        <p class="" id="offcanvasScrollingLabel">{{getPatientInfo.fullname}}</p>
+        <p>18/09/1982</p>
+      </div>
+
+      <div class="sidebar align-items-start d-block">
+        <a href="patient/dashboard" class="active"><i class="bi-speedometer2"></i> Dashboard</a>
+        <a href="patient/report"><i class="bi-person-heart"></i> My Report</a>
+        <a (click)="navi()"><i class="bi-card-list"></i>My Appointment</a>
+        <a (click)="logout()"><i class="bi bi-arrow-down-left-square"></i> Logout</a>
+      </div>
+      <div class="d-flex">
+        <div class="image"></div>
+      </div>
+    </div>
+  </div>
+<br>
+  <div class="page-content ms-3 me-2">
+    <div class="container-fluid">
+    <h5>Assigned Doctor: <span class="fw-light text-primary">Dr. {{getPatientInfo.assignedDoctor}}</span></h5>
+    <br>
+      <div class="row g-2 pb-2">
+        <div class="col-14 col-md-6  col-lg-4">
+          <div class="card vh-100 shadow">
+            <div class="card-header justify-content-between d-flex">
+              <p class="fw-bold">Medications</p>
+              <button class="btn btn-sm btn-outline-primary" data-bs-target="#reportModal" data-bs-toggle="modal">Report side effects</button>
+            </div>
+           <div class="card-body overflow-auto">
+            <div class="d-flex pointer">
+              <p class="border border-1 rounded-0 border-dark rounded-start list ps-4 pe-4 fs-6" [class.text-light]="switch == 'list'" [class.bg-secondary]="switch == 'list'" (click)="switch ='list'" (click)="switch ='list'">List</p>
+              <p class="border border-1 rounded-0 border-dark list rounded-end fs-6" [class.text-light]="switch == 'table'" [class.bg-secondary]="switch == 'table'" (click)="switch ='table'">Schedule</p>
+             </div>
+            <div [ngSwitch]="switch">
+              <div *ngSwitchCase="'list'">
+                <div class="" *ngIf="prescription">
+                  <ul *ngFor="let i of prescription">
+                    <li class="d-flex justify-content-between">
+                      <p class="fw-bold">{{i.drugName}}</p>
+                      <p class="text-secondary">{{i.morningDose}} - {{i.afternoonDose}} - {{i.eveningDose}}</p>
+                    </li>
+                   </ul>
+                </div>
+                <div class="" *ngIf="prescription.length <= 0">
+                  <p class="text-center fs-5 mt-3">No prescription yet</p>
+                </div>
+              </div>
+              <div *ngSwitchCase="'table'">
+                  <div class="" *ngIf="prescription">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Medication</th>
+                          <th scope="col">Morning</th>
+                          <th scope="col">Afternoon</th>
+                          <th scope="col">Evening</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                        *ngFor="let i of prescription">
+                          <td>{{i.drugName}}</td>
+                          <td>{{i.morningDose}}</td>
+                          <td>{{i.afternoonDose}}</td>
+                          <td>{{i.eveningDose}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="" *ngIf="prescription.length <= 0">
+                    <p class="text-center fs-5 mt-3">No prescription yet</p>
+                  </div>
+
+              </div>
+            </div>
+           </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="col-14 col-md-6 col-lg-4">
+          <div class="card vh-100 shadow">
+            <div class="card-header">
+              <p class="fw-bold">Activities</p>
+          </div>
+          <div class="card-body w-100">
+              <div class="row text-center g-2">
+                <div class="col-6 act" *ngFor="let i of activity">
+                  <img src="{{i.activityIcon}}" width="70px" alt="">
+                  <p class="fs-4 fw-bold">{{i.activity}}</p>
+                  <p class="text-secondary">{{i.time}}</p>
+                  <p class="text-secondary">{{i.duration}}</p>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+        <!--  -->
+        <div class="col-14  col-md-6 col-lg-4">
+          <div class="card vh-100 shadow">
+            <div class="card-header">
+              <p class="fw-bold">Recent Appointments</p>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead class="bg-light text-dark">
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i of getPatientAppointment">
+                    <td>{{i.date}}</td>
+                    <td>{{i.doctorName}}</td>
+                    <td>{{i.reason}}</td>
+                    <td><a href="/patient/appointment"><p class="btn btn-sm btn-outline-primary">More >></p></a></td>
+                  </tr>
+                </tbody>
+              </table>
+             <a href="/patient/appointment"><p class="btn btn-sm btn-outline-primary">More >></p></a>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <!-- <div class="col-12 col-md-3">
+          <div class="card shadow-sm p-0 m-0">
+            <div class="card-body">
+              <p>Name:</p>
+              <p>Address</p>
+              <p>Blood Group</p>
+              <p>Genotype</p>
+              <p>Sex</p>
+              <p>Health Status</p>
+              <p class="text-end text-danger">Edit</p>
+            </div>
+          </div>
+        </div> -->
+        <!--  -->
+        <!-- <div class="col-12 col-md-7">
+          <div class="card shadow-sm p-0 m-0">
+            <div class="card-header justify-content-between d-flex">
+              <p class="fw-bold">Medications</p>
+              <p class=" btn-outline-primary btn">Report any side-effects</p>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Drug</th>
+                    <th scope="col">Morning(8:00 am)</th>
+                    <th scope="col">Afternoon(2:00 pm)</th>
+                    <th scope="col">Evening(8:00 pm)</th>
+                    <th scope="col">Days</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Paracetamol</th>
+                    <td>200mg After breakfast</td>
+                    <td>200mg After Lunch</td>
+                    <td>200mg After Dinner</td>
+                    <td>5 days</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Paracetamol</th>
+                    <td>200mg After breakfast</td>
+                    <td>200mg After Lunch</td>
+                    <td>200mg After Dinner</td>
+                    <td>5 days</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Paracetamol</th>
+                    <td>200mg After breakfast</td>
+                    <td>200mg After Lunch</td>
+                    <td>200mg After Dinner</td>
+                    <td>5 days</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div> -->
+      </div>
+<!--
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <div class="card shadow p-0 m-0">
+            <div class="card-header">
+              <p class="fw-bold">Activities</p>
+            </div>
+            <div class="card-body">
+              <div class="row p-5">
+                <div class="col-6 text-center act">
+                  <img src="https://cdn-icons-png.flaticon.com/512/5604/5604658.png" width="70px" alt="">
+                  <p class="fs-4 fw-bold">Walking</p>
+                  <p class="text-secondary">2 Hours</p>
+                  <p class="text-secondary">Daily</p>
+                </div>
+                <div class="col-6 text-center  act">
+                  <img src="https://cdn-icons-png.flaticon.com/512/3437/3437732.png" width="70px" alt="">
+                  <p class="fs-4 fw-bold">Swimming</p>
+                  <p class="text-secondary">2 Hours</p>
+                  <p class="text-secondary">Daily</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="customer position-fixed bottom-0 p-3 end-0">
+    <img src="https://cdn-icons-png.flaticon.com/512/4444/4444501.png" title="Tech support" width="70px" alt="">
+  </div>
+</div>
+
+
+
+<!-- Sideffect Report Modal -->
+
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Report Side-Effect</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- report form -->
+       <div *ngIf="sent == false">
+        <form #reportForm="ngForm">
+          <div class="form-group mt-3">
+            <label for="report">Report</label>
+            <textarea class="form-control" id="report" rows="3" name="desription" #report="ngModel"  [(ngModel)]="sideEffects.description"></textarea>
+          </div>
+      </form>
+       </div>
+
+      <!-- report success -->
+     <div *ngIf="sent">
+      <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>You have successfully submited a report</p>
+        <hr>
+      </div>
+     </div>
+      </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger bi bi-send btn-sm" (click)="sent = true" (click)="submit()" ></button>
+          <button type="button" class="btn btn-secondary btn-sm" (click)="sent = false"  data-bs-dismiss="modal">Close</button>
+        </div>
+  </div>
+</div>
+</div>
+
+

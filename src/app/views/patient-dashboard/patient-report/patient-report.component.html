@@ -1,0 +1,200 @@
+<div class="page-wrapper">
+  <nav class="navbar shadow border border-bottom border-1">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div class="d-flex">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/8166/8166558.png"
+            alt="doctor"
+            class="img-icon"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasScrolling"
+            aria-controls="offcanvasScrolling"
+          />
+          <div class="img ms-5 me-2"></div>
+          <a class="navbar-brand fw-bold fs-4" href="#"
+            >Nate's <span class="fw-light">HealthCare</span></a
+          >
+        </div>
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5 mt-4">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          </li>
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <p class="dropbtn text-dark">
+                {{getPatientInfo.fullname}}<span
+                  ><i class="bi-caret-down ms-2 pt-4"></i
+                ></span>
+              </p>
+              <div class="dropdown-content">
+                <a href="#"> <i class="bi-person-circle me-2"></i>Profile</a>
+                <a href="#"><i class="bi-bell me-2"></i>Notifications</a>
+                <a href="#"><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+    class="offcanvas offcanvas-start"
+    data-bs-scroll="true"
+    data-bs-backdrop="false"
+    tabindex="-1"
+    id="offcanvasScrolling"
+    aria-labelledby="offcanvasScrollingLabel"
+  >
+    <div class="offcanvas-header d-block text-center">
+      <!-- <p>Dr. Favour Daisi</p> -->
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+        alt="profile"
+        class="profile"
+      />
+
+      <button
+        type="button"
+        class="btn-close float-end"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="">
+      <div class="mail text-center pb-3 w-100">
+        <p class="" id="offcanvasScrollingLabel">{{getPatientInfo.fullname}}</p>
+        <p>18/09/1982</p>
+      </div>
+
+      <div class="sidebar align-items-start d-block">
+        <a href="patient/dashboard"><i class="bi-speedometer2"></i> Dashboard</a>
+        <a href="patient/report" class="active"><i class="bi-person-heart"></i> My Report</a>
+        <a href="patient/appointment"><i class="bi-card-list"></i>My Appointment</a>
+        <a (click)="logout()"><i class="bi bi-arrow-down-left-square"></i> Logout</a>
+      </div>
+      <div class="d-flex">
+        <div class="image"></div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="page-content ms-3 me-2">
+    <div class="container-fluid">
+      <div class="row g-2 justify-content-center">
+        <div class="col-9">
+          <div class="card shadow vh-100">
+            <div class="card-header">
+             <h4> My Reports/Tests</h4>
+            </div>
+            <div class="card body overflow-scroll p-3 ">
+              <table class="table-striped table">
+                <thead class="bg-light text-dark">
+                  <tr>
+                    <th scope="col">Report Type</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Test</td>
+                    <td>12/12/2021</td>
+                    <td>
+                      <button class="btn btn-primary">View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>MRI Scan Test</td>
+                    <td>12/12/2021</td>
+                    <td>
+                      <button class="btn btn-primary">View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Test</td>
+                    <td>12/12/2021</td>
+                    <td>
+                      <button class="btn btn-primary">View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Blood Test</td>
+                    <td>12/12/2021</td>
+                    <td>
+                      <button class="btn btn-primary">View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Test</td>
+                    <td>12/12/2021</td>
+                    <td>
+                      <button class="btn btn-primary">View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Test</td>
+                    <td>12/12/2021</td>
+                    <td>
+                      <button class="btn btn-primary">View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Test</td>
+                    <td>12/12/2021</td>
+                    <td>
+                      <button class="btn btn-primary">View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Test</td>
+                    <td>12/12/2021</td>
+                    <td>
+                      <button class="btn btn-primary">View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Test</td>
+                    <td>12/12/2021</td>
+                    <td>
+                      <button class="btn btn-primary">View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Test</td>
+                    <td>12/12/2021</td>
+                    <td>
+                      <button class="btn btn-primary">View</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="customer position-fixed bottom-0 p-3 end-0">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/4444/4444501.png"
+        title="Tech support"
+        width="70px"
+        alt=""
+      />
+    </div>
+  </div>
+</div>

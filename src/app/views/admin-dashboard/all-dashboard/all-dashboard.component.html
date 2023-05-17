@@ -1,0 +1,254 @@
+<div class="sidebarr text-light" #side>
+  <div class="mail text-center pb-3 w-100">
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+      alt=""
+      class="avatar img-t"
+    />
+    <h5>ADMIN</h5>
+  </div>
+
+  <div class="sidebar align-items-start d-block">
+    <a class="active" href="/admin/dashboard"><i class="bi-speedometer2"></i> Dashboard</a>
+    <a href="/admin/doctors"><i class="bi-card-heading" routerLink="/admin/doctors"></i>Doctors</a>
+    <a href="/admin/nurses"><i class="bi-card-heading"routerLink="/admin/nurses"></i>Nurse</a>
+    <a href="/admin/patient"><i class="bi-person-heart"routerLink="/admin/patient"></i> Patients</a>
+    <a href="/admin/departments"><i class="bi-card-heading" routerLink="/admin/departments"></i>Department</a>
+    <a href="/admin/appointments"><i class="bi-card-list"></i>Appointment List</a>
+    <div class="dropdown-sidebar">
+      <a ><i class="bi-card-heading"></i>Monitor Hospital <span class="float-end"><i class="bi-caret-down-fill"></i></span></a>
+      <div class="dropdown-sidebar-content">
+        <a href="/admin/monitor-hospital/blood-bank"><small>Blood Bank</small> </a>
+        <a href="/admin/monitor-hospital/report"><small>Report</small> </a>
+        <a ><small>Medicine</small> </a>
+        <a href="/admin/monitor-hospital/equipments"><small>Equipments</small> </a>
+        <a><small>Mail</small> </a>
+        <a><small>Settings</small> </a>
+      </div>
+    </div>
+    <a href=""><i class="bi-box-arrow-left"></i>Log Out</a>
+  </div>
+</div>
+<div class="content" #cont>
+  <div class="page-wrapper">
+    <nav class="navbar border border-bottom border-1 shadow-sm">
+      <div class="navbar-header">
+        <div class="d-block">
+          <i class="navbar-toggler-icon"  (click)="toggle()"></i>
+        </div>
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          </li>
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+              <div class="dropdown">
+                <div class="dropdown-content">
+                  <a href=""> <i class="bi-person-circle me-2"></i>Profile</a>
+                  <a href=""><i class="bi-bell me-2"></i>Notifications</a>
+                  <a href=""><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <br /><br />
+
+    <div class="page-content ms-3 me-2">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mb-2 col-md-6 col-lg-3">
+            <div class="content-2 d-flex justify-content-between">
+              <div class="col-content">
+                <i class="bi-people h3"></i>
+                <p class="h5">Active Doctors</p>
+              </div>
+              <p class="h3">10</p>
+            </div>
+          </div>
+          <!--  -->
+          <div class="col-12 mb-2 col-md-6 col-lg-3">
+            <div class="content-2 d-flex justify-content-between">
+              <div class="col-content">
+                <i class="bi-people h3"></i>
+                <p class="h5">Active Nurses</p>
+              </div>
+              <p class="h3">10</p>
+            </div>
+          </div>
+          <!--  -->
+          <div class="col-12 mb-2 col-md-6 col-lg-3">
+            <div class="content-2 d-flex justify-content-between">
+              <div class="col-content">
+                <i class="bi-people h3"></i>
+                <p class="h5">Patients</p>
+              </div>
+              <p class="h3">10</p>
+            </div>
+          </div>
+          <!--  -->
+          <div class="col-12 mb-2 col-md-6 col-lg-3">
+            <div class="content-2 d-flex justify-content-between">
+              <div class="col-content">
+                <i class="bi-hourglass-bottom h3"></i>
+                <p class="h5">Laboratory</p>
+              </div>
+              <p class="h3">2</p>
+            </div>
+          </div>
+          <!--  -->
+        </div>
+        <!-- end of row -->
+        <div class="row mt-4">
+          <div class="col-12 mb-2 col-md-6 col-lg-3">
+            <div class="content-2 d-flex justify-content-between">
+              <div class="col-content">
+                <i class="bi-people h3"></i>
+                <p class="h5">Accountant</p>
+              </div>
+              <p class="h3">3</p>
+            </div>
+          </div>
+          <!--  -->
+          <div class="col-12 mb-2 col-md-6 col-lg-3">
+            <div class="content-2 d-flex justify-content-between">
+              <div class="col-content">
+                <i class="bi-capsule h3"></i>
+                <p class="h5">Medicine</p>
+              </div>
+              <p class="h3">200</p>
+            </div>
+          </div>
+          <!--  -->
+          <div class="col-12 mb-2 col-md-6 col-lg-3">
+            <div class="content-2 d-flex justify-content-between">
+              <div class="col-content">
+                <i class="bi-people h3"></i>
+                <p class="h5">Receptionist</p>
+              </div>
+              <p class="h3">3</p>
+            </div>
+          </div>
+          <!--  -->
+          <div class="col-12 mb-2 col-md-6 col-lg-3">
+            <div class="content-2 d-flex justify-content-between">
+              <div class="col-content">
+                <i class="bi-droplet-half h3"></i>
+                <p class="h5">Bood Bank</p>
+              </div>
+              <p class="h3">2</p>
+            </div>
+          </div>
+          <!--  -->
+        </div>
+        <!-- end of row -->
+        <div class="row mt-5">
+          <div class="col-12 col-md-6">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header " id="panelsStayOpen-headingOne">
+                  <button
+                    class="accordion-button text-light"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="panelsStayOpen-collapseOne"
+                    aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne"
+                  >
+                    Nurses
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseOne"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="panelsStayOpen-headingOne"
+                >
+                  <div class="accordion-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">State</th>
+                          <th scope="col">Mobile number</th>
+                          <th scope="col">Email</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let i of doctor, let o = index">
+                          <th scope="row">{{o}}</th>
+                          <td>{{i.fullname}}</td>
+                          <td>{{i.state}}</td>
+                          <td>{{i.phone}}</td>
+                          <td>{{i.email}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="col-12 col-md-6">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header " id="panelsStayOpen-headingOne">
+                  <button
+                    class="accordion-button text-light"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="panelsStayOpen-collapseOne"
+                    aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne"
+                  >
+                    Nurses
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseOne"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="panelsStayOpen-headingOne"
+                >
+                  <div class="accordion-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">State</th>
+                          <th scope="col">Mobile number</th>
+                          <th scope="col">Email</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let i of nurse, let o = index">
+                          <th scope="row">{{o}}</th>
+                          <td>{{i.fullname}}</td>
+                          <td>{{i.state}}</td>
+                          <td>{{i.phone}}</td>
+                          <td>{{i.email}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

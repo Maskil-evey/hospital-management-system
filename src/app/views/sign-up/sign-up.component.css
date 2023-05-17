@@ -1,0 +1,98 @@
+.box{
+  height: 90vh;
+  margin: 5vh auto;
+  background-color: rgb(255, 255, 255);
+}
+.container2{
+  width: 100%;
+  height: 100vh;
+  background: url('https://wordpress.iqonic.design/product/wp/kivicare/wp-content/uploads/2020/10/b-10-1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: auto;
+  font-family: 'Saira', sans-serif !important;
+}
+.img {
+  width: 60px;
+  height: 60px;
+  background-image: url("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/06/a8/f5/06a8f50c-5a51-4169-5051-571823512caa/AppIcon-1x_U007emarketing-0-7-0-85-220.png/230x0w.webp");
+  /* background-color: black; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 13%;
+}
+.content-1 p
+{
+  color: #7093e5;
+
+}
+button {
+  background-color: #f68685;
+  color: white;
+  border: none;
+  width: 150px;
+  height: 50px;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: 'Saira', sans-serif !important;
+}
+button.disabled{
+  background-color: #f68685;
+  color: white;
+  border: none;
+  width: 150px;
+  height: 50px;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: 'Saira', sans-serif !important;
+  opacity: 0.5;
+}
+/* .img-icon{
+  width: 20vw;
+  height:20vh ;
+  background-image: url('https://wordpress.iqonic.design/product/wp/kivicare/wp-content/uploads/2020/10/b-10-1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+} */
+img{
+  width: 40px;
+  cursor: pointer;
+}
+.form-text{
+  width: 80%;
+  /* text-align: center; */
+  margin: auto;
+}
+input{
+  width: 70%;
+  height: 60px;
+  background-color: #ecf2ff;
+  border: none !important;
+  border-radius: 0px !important;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Saira', sans-serif !important;
+  margin: auto;
+}
+.form-group{
+  text-align: center;
+}
+.form-control{
+  background-color: #ecf2ff !important;
+}
+p a{
+ text-decoration: none;
+}
+.first{
+  color: #7093e5;
+}
+small{
+  font-size: 10px !important;
+}

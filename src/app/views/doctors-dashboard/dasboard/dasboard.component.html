@@ -1,0 +1,294 @@
+<div class="page-wrapper">
+  <nav class="navbar shadow border border-bottom border-1">
+    <div class="container-fluid ">
+      <div class="navbar-header">
+
+        <div class="d-flex">
+          <img
+          src="https://cdn-icons-png.flaticon.com/512/8166/8166558.png"
+          alt="doctor"
+          class="img-icon "
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasScrolling"
+          aria-controls="offcanvasScrolling"
+        />
+          <div class="img ms-5 me-2"></div>
+          <a class="navbar-brand fw-bold fs-4" href="#">Nate's <span class="fw-light">HealthCare</span></a>
+        </div>
+
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5 mt-4">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <p class="dropbtn text-dark">{{getDoctorInfo.fullname}}<span><i class="bi-caret-down ms-2 pt-4"></i></span></p>
+              <p class="text-primary">{{getDoctorInfo.department}}</p>
+              <div class="dropdown-content">
+               <a href="#"> <i class="bi-person-circle me-2"></i>Profile</a>
+                <a href="#"><i class="bi-bell me-2"></i>Notifications</a>
+                <a href="#"><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+    class="offcanvas offcanvas-start"
+    data-bs-scroll="true"
+    data-bs-backdrop="false"
+    tabindex="-1"
+    id="offcanvasScrolling"
+    aria-labelledby="offcanvasScrollingLabel"
+  >
+    <div class="offcanvas-header d-block text-center">
+      <!-- <p>Dr. Favour Daisi</p> -->
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+        alt="profile"
+        class="profile">
+
+      <button
+        type="button"
+        class="btn-close float-end"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+
+    </div>
+    <div class="pt-5">
+      <div class="mail text-center pb-3 w-100">
+        <p class="" id="offcanvasScrollingLabel">{{getDoctorInfo.fullname}}</p>
+        <p class="fw-bold">{{getDoctorInfo.department}}</p>
+
+      </div>
+      <div class="sidebar align-items-start d-block">
+        <a href="doctor/dashboard" class="active"><i class="bi-speedometer2"></i> Dashboard</a>
+        <a href="doctor/patient"><i class="bi-person"></i>Patients</a>
+         <a href="doctor/appointment"><i class="bi-card-list"></i>Appointment List</a>
+          <a href="doctor/report"><i class="bi-card-heading"></i>Report</a>
+          <a href="#"><i class="bi-box-arrow-left"></i>Log Out</a>
+
+       </div>
+
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="page-content ms-3 me-2">
+    <div class="container-fluid">
+      <div class="row g-4">
+        <div class="col-12 col-md-6">
+          <div class="card border-danger border bg-white">
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-8  content">
+                  <p>Alert:</p>
+                  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis, ut!</p>
+                </div>
+                <div class="col-3  text-center">
+                  <button class="btn btn-danger p-0">Got it</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="col-12 col-md-6">
+          <div class="card border-danger border bg-white">
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-8  content">
+                  <p>Alert:</p>
+                  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis, ut!</p>
+                </div>
+                <div class="col-3  text-center">
+                  <button class="btn btn-danger p-0">Got it</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="col-12 col-md-6">
+          <div class="card border-danger border bg-white">
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-8  content">
+                  <p>Alert:</p>
+                  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis, ut!</p>
+                </div>
+                <div class="col-3  text-center">
+                  <button class="btn btn-danger p-0">Got it</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="col-12 col-md-6">
+          <div class="card border-danger border bg-white">
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-8  content">
+                  <p>Alert:</p>
+                  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis, ut!</p>
+                </div>
+                <div class="col-3  text-center">
+                  <button class="btn btn-danger p-0">Got it</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+      <br><br>
+      <!-- end of row -->
+      <div class="row">
+        <div class="col">
+          <div class="container-fluid">
+            <div class="row py-4 shadow-sm rounded-3">
+              <div class="text-center h3 py-3 border-bottom border-1">Latest Appointment</div>
+
+              <div class="col-12 col-md-6 col-lg-3 p-2">
+                <div class="card border-0 rounded-1">
+                  <div class="card-body d-flex">
+                  <div class="row w-100">
+                    <div class="col-2 col-lg-12">
+                      <div class="card-head">
+                        <img src="data:image/jpeg;base64,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" class="card-profile" alt="">
+                      </div>
+                    </div>
+                      <div class="col-9 col-lg-12">
+                        <div class="card-subtitle  ps-lg-0 pt-lg-2 d-block">
+                          <p>Pamela Jones</p>
+                          <p>Vistied on: 27 Jun</p>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+
+              </div>
+              <!--  -->
+              <div class="col-12 col-md-6 col-lg-3 p-2">
+                <div class="card border-0 rounded-1">
+                  <div class="card-body d-flex">
+                  <div class="row w-100">
+                    <div class="col-2 col-lg-12">
+                      <div class="card-head">
+                        <img src="https://static.generated.photos/vue-static/face-generator/landing/wall/12.jpg" class="card-profile" alt="">
+                      </div>
+                    </div>
+                      <div class="col-9 col-lg-12">
+                        <div class="card-subtitle  ps-lg-0 pt-lg-2 d-block">
+                          <p>Angela Rodriguez</p>
+                          <p>Vistied on: 27 Jun</p>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+
+              </div>
+              <!--  -->
+              <div class="col-12 col-md-6 col-lg-3 p-2">
+                <div class="card border-0 rounded-1">
+                  <div class="card-body d-flex">
+                  <div class="row w-100">
+                    <div class="col-2 col-lg-12">
+                      <div class="card-head">
+                        <img src="http://amentotech.com/htmls/doclisteo/images/user/userlisting/img-01.jpg" class="card-profile" alt="">
+                      </div>
+                    </div>
+                      <div class="col-9 col-lg-12">
+                        <div class="card-subtitle  ps-lg-0 pt-lg-2 d-block">
+                          <p>James Vlaxin</p>
+                          <p>Vistied on: 27 Jun</p>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+
+              </div>
+              <!--  -->
+              <div class="col-12 col-md-6 col-lg-3 p-2">
+                <div class="card border-0 rounded-1">
+                  <div class="card-body d-flex">
+
+                  <div class="row w-100">
+                    <div class="col-2 col-lg-12">
+                      <div class="card-head">
+                        <img src="data:image/jpeg;base64,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" class="card-profile" alt="">
+                      </div>
+
+                    </div>
+                      <div class="col-9 col-lg-12">
+                        <div class="card-subtitle  ps-lg-0 pt-lg-2 d-block">
+                          <p>Michel Pena</p>
+                          <p>Vistied on: 27 Jun</p>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <!--  -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- //end of row -->
+      <br><br><br>
+      <div class="row">
+        <div class="col-12 col-md-3">
+          <div class="shadow rounded-2 p-3">
+            <img src="http://amentotech.com/htmls/doclisteo/images/thumbnail/img-17.png" class="mb-3" alt="">
+          <h3 class="text-danger">50</h3>
+          <p>Total Appointments</p>
+          </div>
+        </div>
+        <!--  -->
+        <div class="col-12 col-md-3">
+          <div class="shadow rounded-2 p-3">
+            <img src="http://amentotech.com/htmls/doclisteo/images/thumbnail/img-16.png" class="mb-3" alt="">
+          <h3 class="text-primary">20</h3>
+          <p> Completed Appointments</p>
+          </div>
+      </div>
+      <!--  -->
+      <div class="col-12 col-md-3">
+        <div class="shadow rounded-2 p-3">
+          <img src="http://amentotech.com/htmls/doclisteo/images/thumbnail/img-21.png" class="mb-3" alt="">
+        <h3 class="text-warning">10</h3>
+        <p>Pending Appointments</p>
+        </div>
+    </div>
+    <!--  -->
+    <div class="col-12 col-md-3">
+      <div class="shadow rounded-2 p-3">
+        <img src="http://amentotech.com/htmls/doclisteo/images/thumbnail/img-15.png" class="mb-3" alt="">
+      <h3 class="text-success">20</h3>
+      <p>Cancelled Appointments</p>
+      </div>
+    </div>
+    <!--  -->
+  </div>
+</div>
+<br>
+<br><br>

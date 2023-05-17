@@ -1,0 +1,876 @@
+<div class="sidebarr text-light" #side>
+  <div class="mail text-center pb-3 w-100">
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+      alt=""
+      class="avatar img-t"
+    />
+    <h5>ADMIN</h5>
+  </div>
+
+  <div class="sidebar align-items-start d-block">
+    <a href="/admin/dashboard"><i class="bi-speedometer2"></i> Dashboard</a>
+    <a href="/admin/doctors"
+      ><i class="bi-card-heading" routerLink="/admin/doctors"></i>Doctors</a
+    >
+    <a href="/admin/nurses"
+      ><i class="bi-card-heading" routerLink="/admin/nurses"></i>Nurse</a
+    >
+    <a href="/admin/editReport"
+      ><i class="bi-person-heart" routerLink="/admin/editReport"></i>
+      Patiients</a
+    >
+    <a href="/admin/departments"
+      ><i class="bi-card-heading" routerLink="/admin/departments"></i
+      >Department</a
+    >
+    <a href="/admin/appointments"
+      ><i class="bi-card-list" routerLink="/admin/appointments"></i>Appointment
+      List</a
+    >
+    <div class="dropdown-sidebar">
+      <a
+        ><i class="bi-card-heading"></i>Monitor Hospital
+        <span class="float-end"><i class="bi-caret-down-fill"></i></span
+      ></a>
+      <div class="dropdown-sidebar-content">
+        <a href="/admin/monitor-hospital/blood-bank"
+          ><small>Blood Bank</small>
+        </a>
+        <a href="/admin/monitor-hospital/report" class="active"
+          ><small>Report</small>
+        </a>
+        <a><small>Medicine</small> </a>
+        <a href="/admin/monitor-hospital/equipments"
+          ><small>Equipments</small>
+        </a>
+        <a><small>Mail</small> </a>
+        <a><small>Settings</small> </a>
+      </div>
+    </div>
+    <a href=""><i class="bi-box-arrow-left"></i>Log Out</a>
+  </div>
+</div>
+<div class="content" #cont>
+  <div class="page-wrapper">
+    <nav class="navbar border border-bottom border-1 shadow-sm">
+      <div class="navbar-header">
+        <div class="d-block">
+          <i class="navbar-toggler-icon" (click)="toggle()"></i>
+        </div>
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          </li>
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+              <div class="dropdown">
+                <div class="dropdown-content">
+                  <a href="#">
+                    <i class="bi-person-circle me-2 f"></i>Profile</a
+                  >
+                  <a href="#"><i class="bi-bell me-2"></i>Notifications</a>
+                  <a href="#"><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <br /><br />
+
+    <div class="page-content ms-3 me-2">
+      <h3>Hospital Birth Reports</h3>
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button
+                  class="accordion-button shadow-none text-white"
+                  type="button"
+                >
+                  <button
+                    class="btn btn-sm rounded-0 btn-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                  >
+                    + Add Birth Report
+                  </button>
+                </button>
+              </h2>
+              <div
+                id="panelsStayOpen-collapse1"
+                class="accordion-collapse collapse show"
+                aria-labelledby="panelsStayOpen-headingOne"
+              >
+                <div class="accordion-body">
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <p>
+                        Display
+                        <select
+                          class="text-dark"
+                          aria-label=".form-select-sm example"
+                          [(ngModel)]="tableSize"
+                          (change)="OnTableSizeChange(tableSize)"
+                        >
+                          <option *ngFor="let i of tableSizes">{{ i }}</option>
+                        </select>
+                        entries
+                      </p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="d-flex justify-content-end">
+                        <div class="input-group">
+                          <input
+                            type="date"
+                            class="form-control rounded-0 shadow-none"
+                            placeholder="Search"
+                            #input
+                            aria-label="Search"
+                            aria-describedby="button-addon2"
+                            [(ngModel)]="dateSearch"
+                            (change)="search(dateSearch)"
+                          />
+                          <button
+                            class="btn btn-success rounded-0"
+                            type="button"
+                            id="button-addon2"
+
+                          >
+                            <i class="bi bi-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- clear buuton -->
+                  <div class="col-12">
+                    <div class="d-flex justify-content-end">
+                      <button
+                        class="btn btn-sm p-0 btn-warning"
+                        (click)="clear()"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                </div>
+                  <br />
+                  <table>
+                    <tr>
+                      <th>Patient Name</th>
+                      <th>Doctor Name</th>
+                      <th>Birth Type</th>
+                      <th>Birthed</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr
+                      *ngFor="
+                        let i of allListOfBirthReports
+                          | paginate
+                            : {
+                                id: 'birthReport',
+                                itemsPerPage: tableSize,
+                                currentPage: page,
+                                totalItems: allListOfBirthReports.length
+                              }
+                      "
+                    >
+                      <td>{{ i.patientName }}</td>
+                      <td>{{ i.doctorName }}</td>
+                      <td>{{ i.birthType }}</td>
+                      <td>{{ i.gavebirthTo }}</td>
+                      <td>{{ i.date }}</td>
+                      <td>{{ i.time }}</td>
+                      <td>
+                        <button
+                          class="btn btn-sm rounded-0 btn-success"
+                          title="Edit"
+                          (click)="edit(i)"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop3"
+                        >
+                          <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button
+                          class="btn btn-sm rounded-0 btn-danger"
+                          title="Delete"
+                          (click)="removeElementFromObjectArray(i)"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                        <button
+                          class="btn btn-sm rounded-0 btn-warning"
+                          title="View More"
+                          (click)="select(i)"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop2"
+                        >
+                          <i class="bi bi-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="text-end py-3">
+                    <pagination-controls
+                      previousLabel=""
+                      nextLabel="Next"
+                      id="birthReport"
+                      (pageChange)="page = $event"
+                      class="bg-success"
+                    ></pagination-controls>
+                  </div>
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+    </div>
+    <!--  -->
+  </div>
+</div>
+
+<!-- modal -->
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Add new birth report
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div
+        *ngIf="!created"
+      class="modal-body">
+        <form #newBirthReportForm="ngForm">
+          <div class="row g-2">
+            <div class="col-12">
+              <div class="form-fields">
+                <p>Patients Name:</p>
+                <input
+                  type="text"
+                  #fullname="ngModel"
+                  class="w-100"
+                  name="fullname"
+                  [(ngModel)]="newBirthReport.patientName"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Email:</p>
+                <input
+                  type="text"
+                  #email="ngModel"
+                  name="email"
+                  [(ngModel)]="newBirthReport.email"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Phone No:</p>
+                <input
+                  type="text"
+                  #phonenumber="ngModel"
+                  name="phone"
+                  [(ngModel)]="newBirthReport.phoneNumber"
+                />
+              </div>
+            </div>
+            <!--  -->
+
+              <div class="col-12 col-md-6">
+                <div class="form-fields">
+                  <p>Birthed</p>
+                  <select class="form-select shadow-none p-2" name="assignedDoctor" #assignedDoctor="ngModel" [(ngModel)]="newBirthReport.gavebirthTo" id="floatingSelectGrid">
+                    <option *ngFor="let i of birthed" [value]="i">{{i}}</option>
+                 </select>
+                </div>
+              </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Age</p>
+                <input
+                  type="text"
+                  #age="ngModel"
+                  name="age"
+                  [(ngModel)]="newBirthReport.patientAge"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Date</p>
+                <input
+                  type="Date"
+                  #dob="ngModel"
+                  name="dob"
+                  [(ngModel)]="newBirthReport.date"
+                />
+              </div>
+            </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Time</p>
+                <input
+                  type="time"
+                  #dob="ngModel"
+                  name="dob"
+                  [(ngModel)]="newBirthReport.time"
+                />
+              </div>
+            </div>
+
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Blood Pressure</p>
+                <input
+                  type="text"
+                  #bloodGroup="ngModel"
+                  name="blood"
+                  [(ngModel)]="newBirthReport.bloodPressure"
+                />
+              </div>
+            </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Temperature of the baby</p>
+                <input
+                  name="currentsymptoms"
+                  class="w-100"
+                  cols="30"
+                  #symptoms="ngModel"
+                  [(ngModel)]="newBirthReport.temperature"
+                  rows="10"
+                />
+              </div>
+            </div>
+            <!--  -->
+          </div>
+          <!-- end of row -->
+          <div class="row mt-2 g-2">
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Country</p>
+                <input
+                  type="text"
+                  #country="ngModel"
+                  name="country"
+                  [(ngModel)]="newBirthReport.country"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>State</p>
+                <input
+                  type="text"
+                  #state="ngModel"
+                  name="state"
+                  [(ngModel)]="newBirthReport.state"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Baby's hieght</p>
+                <input
+                  type="text"
+                  class="w-100"
+                  name="passwrd"
+                  #password="ngModel"
+                  [(ngModel)]="newBirthReport.height"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Baby's weight</p>
+                <input
+                  type="text"
+                  class="w-100"
+                  name="passwrd"
+                  #password="ngModel"
+                  [(ngModel)]="newBirthReport.weight"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Doctor In-Charge</p>
+                <select
+                  class="form-select shadow-none p-2"
+                  name="assignedDoctor"
+                  #assignedDoctor="ngModel"
+                  [(ngModel)]="newBirthReport.doctorName"
+                  id="floatingSelectGrid"
+                >
+                  <option *ngFor="let i of getAllDoctors" [value]="i.fullname">
+                    Dr. {{ i.fullname }}
+                  </option>
+                </select>
+              </div>
+            </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Birth Process</p>
+                <select
+                  class="form-select shadow-none p-2"
+                  name="assignedDoctor"
+                  #assignedDoctor="ngModel"
+                  [(ngModel)]="newBirthReport.birthType"
+                  id="floatingSelectGrid"
+                >
+                  <option *ngFor="let i of birthType" [value]="i">
+                    {{ i }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12">
+              <div class="form-fields">
+                <p>Address</p>
+                <input
+                  type="text"
+                  #address="ngModel"
+                  name="address"
+                  [(ngModel)]="newBirthReport.address"
+                  class="w-100"
+                />
+              </div>
+            </div>
+            <!--  -->
+          </div>
+        </form>
+      </div>
+    <!-- if Created -->
+    <div *ngIf="created" class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Created!</h4>
+            <p>
+              Birth Report has been created successfully.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-sm rounded-5 btn-secondary"
+        data-bs-dismiss="modal"
+        (click)="created= false"
+      >
+        Close
+      </button>
+      <button
+        *ngIf="!created"
+        type="button"
+        class="btn btn-sm rounded-5 btn-warning"
+        (click)="createBirthReport()"
+      >
+        Create
+      </button>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- View More Modal -->
+
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-light">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{selectedReport.patientName}} Birth Report</h1>
+        <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="" width="50" height="50" alt="">
+        <div *ngIf="switch" class="details">
+          <p class="fw-bold mt-2">Name:<span class="fw-light float-end">{{selectedReport.patientName}} </span> </p>
+          <p class="fw-bold mt-2">Email:<span class="fw-light float-end">{{selectedReport.email}} </span> </p>
+          <p class="fw-bold mt-2">Phone Number:<span class="fw-light float-end">{{selectedReport.phoneNumber}} </span> </p>
+          <p class="fw-bold mt-2">Gender:<span class="fw-light float-end">{{selectedReport.sex}} </span> </p>
+          <p class="fw-bold mt-2">Birthed:<span class="fw-light float-end">{{selectedReport.gavebirthTo}} </span> </p>
+          <p class="fw-bold mt-2">Age:<span class="fw-light float-end">{{selectedReport.patientAge}} </span> </p>
+          <p class="fw-bold mt-2">Date Of Delivery:<span class="fw-light float-end">{{selectedReport.date}} </span> </p>
+          <p class="fw-bold mt-2">Time of Delivery:<span class="fw-light float-end">{{selectedReport.time}} </span> </p>
+          <p class="fw-bold mt-2">Doctor Incharge:<span class="fw-light float-end">{{selectedReport.doctorName}} </span> </p>
+          <p class="fw-bold mt-2">Address: <span class="fw-light float-end">{{selectedReport.address}} </span> </p>
+          <p class="fw-bold mt-2">State:<span class="fw-light float-end">{{selectedReport.state}} </span> </p>
+          <p class="fw-bold mt-2">Country:<span class="fw-light float-end">{{selectedReport.country}} </span> </p>
+          <p class="fw-bold mt-2">Birth Process:<span class="fw-light float-end">{{selectedReport.birthType}} </span> </p>
+          <p class="fw-bold mt-2">Baby's Weight:<span class="fw-light float-end">{{selectedReport.weight}} </span> </p>
+          <p class="fw-bold mt-2">Baby's Height:<span class="fw-light float-end">{{selectedReport.height}} </span> </p>
+          <p class="fw-bold mt-2">Baby's Temperature:<span class="fw-light float-end">{{selectedReport.temperature}} </span> </p>
+          <p class="fw-bold mt-2">Baby's Blood Pressure:<span class="fw-light float-end">{{selectedReport.bloodPressure}} </span> </p>
+        </div>
+          <div *ngIf="switch==false" class="diagnosis">
+            <h3>Death Diagnosis</h3>
+            <p>{{selectedReport.fullReportOnBirth}}</p>
+            <button
+              type="button"
+              class="btn btn-sm rounded-5 btn-dark"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Print"
+            >
+            <i class="bi bi-printer"> Print</i>
+            </button>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm rounded-5 btn-secondary" data-bs-dismiss="modal" (click)="switch = true">Close</button>
+      <button *ngIf="switch" type="button" class="btn btn-sm rounded-5 btn-danger" (click)="switch = false" >Full Birth Diagnosis</button>
+      <button *ngIf="!switch" type="button" class="btn btn-sm rounded-5 btn-danger" (click)="switch = true" >Back</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Edit Report -->
+
+
+<div
+  class="modal fade"
+  id="staticBackdrop3"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Edit Birth Report
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div *ngIf="!updated" class="modal-body">
+        <form #editReportForm="ngForm">
+          <div class="row g-2">
+            <div class="col-12">
+              <div class="form-fields">
+                <p>Patients Name:</p>
+                <input
+                  type="text"
+                  #fullname="ngModel"
+                  class="w-100"
+                  name="fullname"
+                  [value]="editReport.patientName"
+                  [(ngModel)]="editReport.patientName"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Email:</p>
+                <input
+                  type="text"
+                  #email="ngModel"
+                  name="email"
+                  [value]="editReport.email"
+                  [(ngModel)]="editReport.email"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Phone No:</p>
+                <input
+                  type="text"
+                  #phonenumber="ngModel"
+                  name="phone"
+                  [(ngModel)]="editReport.phoneNumber"
+                  [value]="editReport.phoneNumber"
+                />
+              </div>
+            </div>
+            <!--  -->
+
+              <div class="col-12 col-md-6">
+                <div class="form-fields">
+                  <p>Birthed</p>
+                  <select class="form-select shadow-none p-2" name="assignedDoctor" #assignedDoctor="ngModel"
+                  [(ngModel)]="editReport.gavebirthTo"
+                  [value]="editReport.gavebirthTo"
+                  id="floatingSelectGrid">
+                    <option *ngFor="let i of birthed" [value]="i">{{i}}</option>
+                 </select>
+                </div>
+              </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Age</p>
+                <input
+                  type="text"
+                  #age="ngModel"
+                  name="age"
+                  [(ngModel)]="editReport.patientAge"
+                  [value]="editReport.patientAge"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Date</p>
+                <input
+                  type="Date"
+                  #dob="ngModel"
+                  name="dob"
+                  [(ngModel)]="editReport.date"
+                  [value]="editReport.date"
+                />
+              </div>
+            </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Time</p>
+                <input
+                  type="time"
+                  #dob="ngModel"
+                  name="dob"
+                  [(ngModel)]="editReport.time"
+                  [value]="editReport.time"
+                />
+              </div>
+            </div>
+
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Blood Pressure</p>
+                <input
+                  type="text"
+                  #bloodGroup="ngModel"
+                  name="blood"
+                  [(ngModel)]="editReport.bloodPressure"
+                  [value]="editReport.bloodPressure"
+                />
+              </div>
+            </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Temperature of the baby</p>
+                <input
+                  name="currentsymptoms"
+                  class="w-100"
+                  cols="30"
+                  #symptoms="ngModel"
+                  [(ngModel)]="editReport.temperature"
+                  [value]="editReport.temperature"
+                  rows="10"
+                />
+              </div>
+            </div>
+            <!--  -->
+          </div>
+          <!-- end of row -->
+          <div class="row mt-2 g-2">
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Country</p>
+                <input
+                  type="text"
+                  #country="ngModel"
+                  name="country"
+                  [(ngModel)]="editReport.country"
+                  [value]="editReport.country"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>State</p>
+                <input
+                  type="text"
+                  #state="ngModel"
+                  name="state"
+                  [(ngModel)]="editReport.state"
+                  [value]="editReport.state"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Baby's hieght</p>
+                <input
+                  type="text"
+                  class="w-100"
+                  name="passwrd"
+                  #password="ngModel"
+                  [(ngModel)]="editReport.height"
+                  [value]="editReport.height"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Baby's weight</p>
+                <input
+                  type="text"
+                  class="w-100"
+                  name="passwrd"
+                  #password="ngModel"
+                  [(ngModel)]="editReport.weight"
+                  [value]="editReport.weight"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Doctor In-Charge</p>
+                <select
+                  class="form-select shadow-none p-2"
+                  name="assignedDoctor"
+                  #assignedDoctor="ngModel"
+                  [(ngModel)]="editReport.doctorName"
+                  [value]="editReport.doctorName"
+                  id="floatingSelectGrid"
+                >
+                  <option *ngFor="let i of getAllDoctors" [value]="i.fullname">
+                    Dr. {{ i.fullname }}
+                  </option>
+                </select>
+              </div>
+            </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+                <p>Birth Process</p>
+                <select
+                  class="form-select shadow-none p-2"
+                  name="assignedDoctor"
+                  #assignedDoctor="ngModel"
+                  [(ngModel)]="editReport.birthType"
+                  [value]="editReport.birthType"
+                  id="floatingSelectGrid"
+                >
+                  <option *ngFor="let i of birthType" [value]="i">
+                    {{ i }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12">
+              <div class="form-fields">
+                <p>Address</p>
+                <input
+                  type="text"
+                  #address="ngModel"
+                  name="address"
+                  [(ngModel)]="editReport.address"
+                  [value]="editReport.address"
+                  class="w-100"
+                />
+              </div>
+            </div>
+            <!--  -->
+          </div>
+        </form>
+      </div>
+
+      <!-- if Updated  -->
+      <div *ngIf="updated" class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">Upadted!</h4>
+              <p>
+              Report has been updated successfully.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-sm rounded-5 btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="updated = false"
+        >
+          Close
+        </button>
+        <button
+          *ngIf="!updated"
+          type="button"
+          class="btn btn-sm rounded-5 btn-warning"
+          (click)="update()"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

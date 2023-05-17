@@ -1,0 +1,807 @@
+
+<div class="sidebarr text-light" #side>
+  <div class="mail text-center pb-3 w-100">
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+      alt=""
+      class="avatar img-t"
+    />
+    <h5>ADMIN</h5>
+  </div>
+
+  <div class="sidebar align-items-start d-block">
+    <a href="/admin/dashboard"><i class="bi-speedometer2"></i> Dashboard</a>
+    <a href="/admin/doctors"
+      ><i class="bi-card-heading" routerLink="/admin/doctors"></i>Doctors</a
+    >
+    <a href="/admin/nurses"
+      ><i class="bi-card-heading" routerLink="/admin/nurses"></i>Nurse</a
+    >
+    <a href="/admin/editReport"
+      ><i class="bi-person-heart" routerLink="/admin/editReport"></i>
+      Patiients</a
+    >
+    <a href="/admin/departments"
+      ><i class="bi-card-heading" routerLink="/admin/departments"></i
+      >Department</a
+    >
+    <a href="/admin/appointments"
+      ><i class="bi-card-list" routerLink="/admin/appointments"></i>Appointment
+      List</a
+    >
+    <div class="dropdown-sidebar">
+      <a
+        ><i class="bi-card-heading"></i>Monitor Hospital
+        <span class="float-end"><i class="bi-caret-down-fill"></i></span
+      ></a>
+      <div class="dropdown-sidebar-content">
+        <a href="/admin/monitor-hospital/blood-bank"
+          ><small>Blood Bank</small>
+        </a>
+        <a href="/admin/monitor-hospital/report" class="active"
+          ><small>Report</small>
+        </a>
+        <a><small>Medicine</small> </a>
+        <a href="/admin/monitor-hospital/equipments"
+          ><small>Equipments</small>
+        </a>
+        <a><small>Mail</small> </a>
+        <a><small>Settings</small> </a>
+      </div>
+    </div>
+    <a href=""><i class="bi-box-arrow-left"></i>Log Out</a>
+  </div>
+</div>
+<div class="content" #cont>
+  <div class="page-wrapper">
+    <nav class="navbar border border-bottom border-1 shadow-sm">
+      <div class="navbar-header">
+        <div class="d-block">
+          <i class="navbar-toggler-icon" (click)="toggle()"></i>
+        </div>
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          </li>
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+              <div class="dropdown">
+                <div class="dropdown-content">
+                  <a href="#">
+                    <i class="bi-person-circle me-2 f"></i>Profile</a
+                  >
+                  <a href="#"><i class="bi-bell me-2"></i>Notifications</a>
+                  <a href="#"><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <br /><br />
+
+    <div class="page-content ms-3 me-2">
+      <h3>Hospitals Operation Reports</h3>
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button
+                  class="accordion-button w-100 shadow-none text-white"
+                  type="button"
+                >
+                  <button
+                    class="btn btn-sm rounded-0 btn-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                  >
+                    + Add Operation Report
+                  </button>
+                </button>
+              </h2>
+              <div
+                id="panelsStayOpen-collapse1"
+                class="accordion-collapse collapse show"
+                aria-labelledby="panelsStayOpen-headingOne"
+              >
+                <div class="accordion-body">
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <p>
+                        Display
+                        <select
+                          class="text-dark"
+                          aria-label=".form-select-sm example"
+                          [(ngModel)]="tableSize"
+                          (change)="OnTableSizeChange(tableSize)"
+                        >
+                          <option *ngFor="let i of tableSizes">{{ i }}</option>
+                        </select>
+                        entries
+                      </p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="d-flex justify-content-end">
+                        <div class="input-group">
+                          <input
+                            type="date"
+                            class="form-control input rounded-0 shadow-none"
+                            placeholder="Search"
+                            aria-label="Search"
+                            #input
+                            aria-describedby="button-addon2"
+                            [(ngModel)]="dateSearch"
+                            (change)="search(dateSearch)"
+                          />
+                          <button
+                            class="btn btn-success rounded-0"
+                            type="button"
+                            id="button-addon2"
+
+                          >
+                            <i class="bi bi-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- clear buuton -->
+                    <div class="col-12">
+                      <div class="d-flex justify-content-end">
+                        <button
+                          class="btn btn-sm p-0 btn-warning"
+                          (click)="clear()"
+                        >
+                          Clear
+                        </button>
+                      </div>
+                  </div>
+                  <br />
+                  <br>
+                  <!-- operation Table -->
+                  <table>
+                    <tr>
+                      <th>Patient Name</th>
+                      <th>Surgeon Names/Name</th>
+                      <th>Operation Date</th>
+                      <th>Operation Type</th>
+                      <th>Successful</th>
+                      <th>Patient Age</th>
+                      <th>Action</th>
+                    </tr>
+                    <tr
+                      *ngFor="
+                        let i of allListOfOperationReports
+                          | paginate
+                            : {
+                                id: 'birthReport',
+                                itemsPerPage: tableSize,
+                                currentPage: page,
+                                totalItems: allListOfOperationReports.length
+                              }
+                      "
+                    >
+                      <td>{{ i.patientName }}</td>
+                      <td>{{ i.surgeonNames }}</td>
+                      <td>{{ i.date }}</td>
+                      <td>{{ i.operationType }}</td>
+                      <td *ngIf="i.successful=='Yes'">Yes</td>
+                      <td *ngIf="i.successful=='No'">No</td>
+                      <td>{{ i.patientAge }}</td>
+                      <td>
+                        <button
+                          class="btn btn-sm rounded-0 btn-success"
+                          title="Edit"
+                          (click)="edit(i)"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop3"
+                        >
+                          <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button
+                          class="btn btn-sm rounded-0 btn-danger"
+                          title="Delete"
+                          (click)="removeElementFromObjectArray(i)"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                        <button
+                          class="btn btn-sm rounded-0 btn-warning"
+                          title="View More"
+                          (click)="select(i)"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop2"
+                        >
+                          <i class="bi bi-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="text-end py-3">
+                    <pagination-controls
+                      previousLabel=""
+                      nextLabel="Next"
+                      id="birthReport"
+                      (pageChange)="page = $event"
+                      class="bg-success"
+                    ></pagination-controls>
+                  </div>
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+    </div>
+    <!--  -->
+  </div>
+</div>
+
+<!-- modal -->
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Add new operation report
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div *ngIf="!created" class="modal-body">
+        <form #newOperationReportForm="ngForm">
+          <div class="row g-2">
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Patients Name:</p>
+                <input
+                  type="text"
+                  #fullname="ngModel"
+                  class="w-100"
+                  name="fullname"
+                  [(ngModel)]="newOperationReport.patientName"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Email:</p>
+                <input
+                  type="text"
+                  #email="ngModel"
+                  name="email"
+                  [(ngModel)]="newOperationReport.email"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Phone No:</p>
+                <input
+                  type="text"
+                  #phonenumber="ngModel"
+                  name="phone"
+                  [(ngModel)]="newOperationReport.phoneNumber"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Operation/Surgery</p>
+                <select type="text"  class=" w-100 shadow-none " name="surgery" #surgeons="ngModel" [(ngModel)]="newOperationReport.operationType">
+                  <option selected>Open this select menu</option>
+                  <option    *ngFor="let i of operationType" value="{{i}}">{{i}}</option>
+                </select>
+              </div>
+            </div>
+          <!--  -->
+
+              <div class="col-12 w-100">
+                <div class="form-fields w-100 shadow-none mb-2">
+                  <p>Surgeons</p>
+                  <select type="text" #select (change)="add()" class=" w-100 shadow-none w-100" name="surgeons" #surgeons="ngModel" [(ngModel)]="newOperationReport.surgeonNames">
+                    <option selected>Open this select menu</option>
+                    <option    *ngFor="let i of getAllSurgeons" value="Dr. {{i}}">Dr. {{i}}</option>
+                  </select>
+                </div>
+                <span class="span me-2 mb-2" *ngFor="let i of surgeonNames">{{i}} <sup class="px-1" (click)="removeElementFromObjectArray2(i)">x</sup></span>
+              </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Age</p>
+                <input
+                  type="text"
+                  #age="ngModel"
+                  name="age"
+                  [(ngModel)]="newOperationReport.patientAge"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Sex</p>
+                <select
+                  class="form-fields w-100 shadow-none w-100 shadow-none"
+                  aria-label="Default select example"
+                  name="sex"
+                  #sex="ngModel"
+                  [(ngModel)]="newOperationReport.sex"
+                >
+                  <!-- <option selected>Open this select menu</option> -->
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+            </div>
+            <!--  -->
+
+            <div class="col-12 col-md-5">
+              <div class="form-fields w-100 shadow-none">
+                <p>Date of Operation</p>
+                <input
+                  type="Date"
+                  #dob="ngModel"
+                  name="dob"
+                  [(ngModel)]="newOperationReport.date"
+                />
+              </div>
+            </div>
+             <!--  -->
+             <div class="col-12 col-md-5">
+              <div class="form-fields w-100 shadow-none">
+                <p>Time of Operation</p>
+                <input
+                  type="time"
+                  #dob="ngModel"
+                  name="dob"
+                  [(ngModel)]="newOperationReport.time"
+                />
+              </div>
+            </div>
+
+            <!--  -->
+            <div class="col-12 col-md-2">
+              <div class="form-fields w-100 shadow-none">
+                <p>Successful</p>
+                <select type="text"  class=" w-100 shadow-none " name="successful" #successful="ngModel" [(ngModel)]="newOperationReport.successful">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <!-- {{newOperationReport.successful}}
+                {{successful.value}} -->
+              </div>
+            </div>
+          <!--  -->
+
+          </div>
+          <!-- end of row -->
+          <div class="row mt-2 g-2">
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Country</p>
+                <input
+                  type="text"
+                  #country="ngModel"
+                  name="country"
+                  [(ngModel)]="newOperationReport.country"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>State</p>
+                <input
+                  type="text"
+                  #state="ngModel"
+                  name="state"
+                  [(ngModel)]="newOperationReport.state"
+                />
+              </div>
+            </div>
+
+            <!--  -->
+            <div class="col-12">
+              <div class="form-fields w-100 shadow-none">
+                <p>Address</p>
+                <input
+                  type="text"
+                  #address="ngModel"
+                  name="address"
+                  [(ngModel)]="newOperationReport.address"
+                  class="w-100"
+                />
+              </div>
+            </div>
+            <!--  -->
+          </div>
+        </form>
+      </div>
+      <!-- if Created -->
+      <div *ngIf="created" class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">Created!</h4>
+              <p>
+             Operation report has been created successfully.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-sm rounded-5 btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="created= false"
+        >
+          Close
+        </button>
+        <button
+          *ngIf="!created"
+          type="button"
+          class="btn btn-sm rounded-5 btn-warning"
+          (click)="createOperationReport()"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- View More Modal -->
+
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header text-light  bg-dark">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{selectedReport.patientName}} Operation Report</h1>
+        <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="" width="50" height="50" alt="">
+        <div *ngIf="switch" class="details">
+          <p class="fw-bold mt-2">Name:<span class="fw-light float-end">{{selectedReport.patientName}} </span> </p>
+          <p class="fw-bold mt-2">Email:<span class="fw-light float-end">{{selectedReport.email}} </span> </p>
+          <p class="fw-bold mt-2">Phone Number:<span class="fw-light float-end">{{selectedReport.phoneNumber}} </span> </p>
+          <p class="fw-bold mt-2">Age:<span class="fw-light float-end">{{selectedReport.patientAge}} </span> </p>
+          <p class="fw-bold mt-2">Gender:<span class="fw-light float-end">{{selectedReport.sex}} </span> </p>
+          <p class="fw-bold mt-2">Operation/Surgery:<span class="fw-light float-end">{{selectedReport.operationType}} </span> </p>
+          <p class="fw-bold mt-2">Surgeons:<span class="fw-light float-end">{{selectedReport.surgeonNames}} </span> </p>
+          <p class="fw-bold mt-2">Date of Operation:<span class="fw-light float-end">{{selectedReport.date}} </span> </p>
+          <p class="fw-bold mt-2">Time of Operation:<span class="fw-light float-end">{{selectedReport.time}} </span> </p>
+          <p class="fw-bold mt-2" *ngIf="selectedReport.successful=='Yes'">Successful:<span class="fw-light float-end">Yes</span> </p>
+          <p class="fw-bold mt-2" *ngIf="selectedReport.successful=='No'">Successful:<span class="fw-light float-end">No</span> </p>
+          <p class="fw-bold mt-2">Address: <span class="fw-light float-end">{{selectedReport.address}} </span> </p>
+          <p class="fw-bold mt-2">State:<span class="fw-light float-end">{{selectedReport.state}} </span> </p>
+          <p class="fw-bold mt-2">Country:<span class="fw-light float-end">{{selectedReport.country}} </span> </p>
+
+        </div>
+
+        <!-- diagnosis detals -->
+        <div *ngIf="switch==false" class="diagnosis">
+          <h3>Operation Diagnosis</h3>
+          <p>{{selectedReport.fullReportOnOperation}}</p>
+          <button
+            type="button"
+            class="btn btn-sm rounded-5 btn-dark"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="Print"
+          >
+           <i class="bi bi-printer"> Print</i>
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm rounded-5 btn-secondary" data-bs-dismiss="modal" (click)="switch = true">Close</button>
+        <button *ngIf="switch" type="button" class="btn btn-sm rounded-5 btn-danger" (click)="switch = false" >Full Diagnosis</button>
+        <button *ngIf="!switch" type="button" class="btn btn-sm rounded-5 btn-danger" (click)="switch = true" >Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit Report -->
+
+
+<div
+  class="modal fade"
+  id="staticBackdrop3"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Edit Operation Report
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div *ngIf="!updated" class="modal-body">
+        <form #editReportForm="ngForm">
+          <div class="row g-2">
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Patients Name:</p>
+                <input
+                  type="text"
+                  #fullname="ngModel"
+                  class="w-100"
+                  name="fullname"
+                  [value]="editReport.patientName"
+                  [(ngModel)]="editReport.patientName"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Email:</p>
+                <input
+                  type="text"
+                  #email="ngModel"
+                  name="email"
+                  [value]="editReport.email"
+                  [(ngModel)]="editReport.email"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Phone No:</p>
+                <input
+                  type="text"
+                  #phonenumber="ngModel"
+                  name="phone"
+                  [(ngModel)]="editReport.phoneNumber"
+                  [value]="editReport.phoneNumber"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Operation/Surgery</p>
+                <select type="text"  class=" w-100 shadow-none " name="surgery" #surgeons="ngModel" [(ngModel)]="editReport.operationType">
+                  <option selected>Open this select menu</option>
+                  <option    *ngFor="let i of operationType" value="{{i}}">{{i}}</option>
+                </select>
+              </div>
+            </div>
+            <!--  -->
+              <!-- <div class="col-12 col-md-6">
+                <div class="form-fields w-100 shadow-none">
+                  <p>Birthed</p>
+                  <select class="form-select w-100 shadow-none p-2" name="assignedDoctor" #assignedDoctor="ngModel"
+                  [(ngModel)]="editReport.gavebirthTo"
+                  [value]="editReport.gavebirthTo"
+                  id="floatingSelectGrid">
+                    <option *ngFor="let i of birthed" [value]="i">{{i}}</option>
+                 </select>
+                </div>
+              </div> -->
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Age</p>
+                <input
+                  type="text"
+                  #age="ngModel"
+                  name="age"
+                  [(ngModel)]="editReport.patientAge"
+                  [value]="editReport.patientAge"
+                />
+              </div>
+            </div>
+                <!--  -->
+                  <div class="col-12 col-md-6">
+                    <div class="form-fields w-100 shadow-none">
+                      <p>Sex</p>
+                      <select
+                        class="form-fields w-100 shadow-none w-100 shadow-none"
+                        aria-label="Default select example"
+                        name="sex"
+                        #sex="ngModel"
+                        [(ngModel)]="editReport.sex"
+                      >
+                        <!-- <option selected>Open this select menu</option> -->
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!--  -->
+            <div class="col-12 col-md-5">
+              <div class="form-fields w-100 shadow-none">
+                <p>Date</p>
+                <input
+                  type="Date"
+                  #dob="ngModel"
+                  name="dob"
+                  [(ngModel)]="editReport.date"
+                  [value]="editReport.date"
+                />
+              </div>
+            </div>
+             <!--  -->
+             <div class="col-12 col-md-5">
+              <div class="form-fields w-100 shadow-none">
+                <p>Time</p>
+                <input
+                  type="time"
+                  #dob="ngModel"
+                  name="dob"
+                  [(ngModel)]="editReport.time"
+                  [value]="editReport.time"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-2">
+              <div class="form-fields w-100 shadow-none">
+                <p>Successful</p>
+                <select type="text"  class=" w-100 shadow-none " name="successful" #successful="ngModel" [(ngModel)]="editReport.successful">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <!-- {{newOperationReport.successful}}
+                {{successful.value}} -->
+              </div>
+            </div>
+
+            <!--  -->
+            <div class="col-12 w-100">
+              <div class="form-fields w-100 shadow-none mb-2">
+                <p>Surgeons</p>
+                <select type="text" #editSelect (change)="addToEdit()"  class=" w-100 shadow-none w-100" name="surgeons" #surgeons="ngModel" [(ngModel)]="editReport.surgeonNames">
+                  <!-- <option selected>Open this select menu</option> -->
+                  <option  *ngFor="let i of getAllSurgeons" value="Dr. {{i}}">Dr. {{i}}</option>
+                </select>
+              </div>
+              <span class="span me-2 mb-2" *ngFor="let i of editSurgeonNames">{{i}} <sup class="px-1" (click)="removeElementFromObjectArray3(i)">x</sup></span>
+            </div>
+          <!--  -->
+             <!-- <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Temperature of the baby</p>
+                <input
+                  name="currentsymptoms"
+                  class="w-100"
+                  cols="30"
+                  #symptoms="ngModel"
+                  [(ngModel)]="editReport.temperature"
+                  [value]="editReport.temperature"
+                  rows="10"
+                />
+              </div>
+            </div> -->
+            <!--  -->
+          </div>
+          <!-- end of row -->
+          <div class="row mt-2 g-2">
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>Country</p>
+                <input
+                  type="text"
+                  #country="ngModel"
+                  name="country"
+                  [(ngModel)]="editReport.country"
+                  [value]="editReport.country"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields w-100 shadow-none">
+                <p>State</p>
+                <input
+                  type="text"
+                  #state="ngModel"
+                  name="state"
+                  [(ngModel)]="editReport.state"
+                  [value]="editReport.state"
+                />
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-12">
+              <div class="form-fields w-100 shadow-none">
+                <p>Address</p>
+                <input
+                  type="text"
+                  #address="ngModel"
+                  name="address"
+                  [(ngModel)]="editReport.address"
+                  [value]="editReport.address"
+                  class="w-100"
+                />
+              </div>
+            </div>
+            <!--  -->
+          </div>
+        </form>
+      </div>
+      <!-- if Updated  -->
+      <div *ngIf="updated" class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">Upadted!</h4>
+              <p>
+              Report has been updated successfully.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-sm rounded-5 btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="updated = false"
+          (click)="surgeonNames = []"
+        >
+          Close
+        </button>
+        <button
+          *ngIf="!updated"
+          type="button"
+          class="btn btn-sm rounded-5 btn-warning"
+          (click)="update()"
+          (click)="surgeonNames = []"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

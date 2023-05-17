@@ -1,0 +1,119 @@
+<div class="container2 text-center">
+  <p class="btn btn-danger float-end btn-sm" (click)="user = !user" (click)="adminLogin()">{{logintxt}}</p>
+  <div class="box col-8 col-md-6 col-lg-4 overflow-auto" [class.bg-black]="bg">
+    <div class="d-flex justify-content-center mt-5">
+      <div class="img ms-3 me-2"></div>
+      <a class="navbar-brand fw-bold fs-4 mt-2" [class.text-danger]="txt" href="#"
+        >Nate's <span class="fw-light">HealthCare</span></a
+      >
+    </div>
+
+    <div [ngSwitch]="user" class="mt-4">
+      <div *ngSwitchCase="true" class="text-center">
+        <form #form="ngForm">
+          <div class="text-danger smallmm p-0 m-0 text-center">{{errorMessage}}</div>
+          <p class="first">Login</p>
+          <div class="form-group">
+            <input
+              type="email"
+              class="form-control"
+              #name="ngModel"
+              id="email"
+              [class.is-invalid]="name.invalid && name.touched"
+              placeholder="Email *"
+              name="email"
+              [(ngModel)]="userModel.email"
+              required
+            />
+          </div>
+          <div *ngIf="name.errors && (name.touched || name.invalid)">
+            <small *ngIf="name.errors && name.touched" class="text-danger"
+              >Email is required</small
+            >
+          </div>
+          <div class="form-group mt-3">
+            <input
+              type="password"
+              class="form-control"
+              #pswrd="ngModel"
+              password="ngModel"
+              pattern=""
+              id="password"
+              [class.is-invalid]="pswrd.invalid && pswrd.touched"
+              name="password"
+              placeholder="Password *"
+              [(ngModel)]="userModel.password"
+              required
+            />
+          </div>
+          <div *ngIf="pswrd.errors && (pswrd.touched || pswrd.invalid)">
+            <small *ngIf="pswrd.errors && pswrd.touched" class="text-danger"
+              >Password is required</small
+            >
+          </div>
+          <div class="form-text mt-3 overflow-auto d-flex justify-content-center">
+            <input type="checkbox" class="checkboxx " required>
+            <p class="mt-3">
+              I agree to the
+              <a href="#" class="">Terms of Use</a>
+              and
+              <a href="#" class="">Privacy Policy</a>
+            </p>
+          </div>
+
+          <button
+            type="submit"
+            class="mt-3 fs-6"
+            [class.disabled]="form.invalid"
+            (click)="login()"
+          >
+            Login
+          </button>
+
+          <div class="form-text mt-3">
+            <p>
+              Don't have an account? <a routerLink="/signup">Sign Up</a>
+            </p>
+          </div>
+        </form>
+      </div>
+      <div *ngSwitchCase="false">
+        <form #form="ngForm">
+          <p class="first" [class.text-success]="txt">Admin Login</p>
+          <div class="form-group">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Email *"
+              name="email"
+              required
+            />
+          </div>
+          <div class="form-group mt-3">
+            <input
+              type="password"
+              class="form-control"
+              password="ngModel"
+              pattern=""
+              id="password"
+              name="password"
+              placeholder="Password *"
+              required
+            />
+          </div>
+
+
+          <button
+            type="submit"
+            class="mt-3 fs-6"
+            [class.disabled]="form.invalid"
+            routerLink="/admin/dashboard"
+          >
+            Login
+        </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

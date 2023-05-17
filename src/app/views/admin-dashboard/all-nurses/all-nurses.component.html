@@ -1,0 +1,297 @@
+<div class="sidebarr text-light" #side>
+  <div class="mail text-center pb-3 w-100">
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+      alt=""
+      class="avatar img-t"
+    />
+    <h5>ADMIN</h5>
+  </div>
+
+  <div class="sidebar align-items-start d-block">
+    <a  href="/admin/dashboard"><i class="bi-speedometer2"></i> Dashboard</a>
+    <a href="/admin/doctors"><i class="bi-card-heading" routerLink="/admin/doctors"></i>Doctors</a>
+    <a href="/admin/nurses" class="active"><i class="bi-card-heading"routerLink="/admin/nurses"></i>Nurse</a>
+    <a href="/admin/patient"><i class="bi-person-heart"routerLink="/admin/patient"></i> Patients</a>
+    <a href="/admin/departments"><i class="bi-card-heading" routerLink="/admin/departments"></i>Department</a>
+    <a href="/admin/appointments"><i class="bi-card-list"></i>Appointment List</a>
+    <div class="dropdown-sidebar">
+      <a ><i class="bi-card-heading"></i>Monitor Hospital <span class="float-end"><i class="bi-caret-down-fill"></i></span></a>
+      <div class="dropdown-sidebar-content">
+        <a href="/admin/monitor-hospital/blood-bank"><small>Blood Bank</small> </a>
+        <a href="/admin/monitor-hospital/report"><small>Report</small> </a>
+        <a ><small>Medicine</small> </a>
+        <a href="/admin/monitor-hospital/equipments"><small>Equipments</small> </a>
+        <a><small>Mail</small> </a>
+        <a><small>Settings</small> </a>
+      </div>
+    </div>
+    <a href=""><i class="bi-box-arrow-left"></i>Log Out</a>
+  </div>
+</div>
+<div class="content" #cont>
+  <div class="page-wrapper">
+    <nav class="navbar border border-bottom border-1 shadow-sm">
+      <div class="navbar-header">
+        <div class="d-block">
+          <i class="navbar-toggler-icon" (click)="toggle()"></i>
+        </div>
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          </li>
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+              <div class="dropdown">
+                <div class="dropdown-content">
+                  <a href="#"> <i class="bi-person-circle me-2"></i>Profile</a>
+                  <a href="#"><i class="bi-bell me-2"></i>Notifications</a>
+                  <a href="#"><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <br /><br />
+
+    <div class="page-content ms-3 me-2">
+      <h3>ALL NURSES</h3>
+      <div class="row  mt-2 text-end">
+        <div class="col-12">
+          <button class="btn rounded-5 btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="bi-plus"></i> Add Nurse</button>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <!-- end of row -->
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header " id="panelsStayOpen-headingOne">
+                  <button
+                    class="accordion-button text-light"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne"
+                    aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne"
+                  >
+                   Nurse
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseOne"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="panelsStayOpen-headingOne"
+                >
+                  <div class="accordion-body">
+                    <table>
+                      <tr>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>State</th>
+                        <th class="text-end">Actions</th>
+                      </tr>
+                      <tr *ngFor="let i of listNurses">
+                        <td>{{i.fullname}}</td>
+                        <td>{{i.phone}}</td>
+                        <td>{{i.email}}</td>
+                        <td>{{i.state}}</td>
+                        <td class="d-flex justify-content-end">
+                          <button class="btn btn-sm me-2 btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" (click)="select(i)"> <i
+                            title="View more"
+                            class="bi bi-eye"
+                          ></i></button>
+                          <button class="btn btn-sm btn-danger"> <i
+                            title="Delete"
+                            class="bi bi-trash"
+                          ></i></button>
+                      </tr>
+                    </table>
+                    <!-- <table class="">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Department</th>
+                          <th scope="col">Mobile number</th>
+                          <th scope="col">Status</th>
+                          <th  class="float-end">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                          <td class="d-flex float-end" >
+                            <button class="btn btn-sm btn-primary">View details</button>
+                            <button class="btn btn-sm btn-danger ms-2">Delete</button>
+                          </td>
+
+
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                          <td>@fat</td>
+                           <td class="d-flex float-end">
+                            <button class="btn btn-sm btn-primary">View details</button>
+                            <button class="btn btn-sm btn-danger ms-2">Delete</button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td colspan="2">Larry the Bird</td>
+                          <td>@twitter</td>
+                          <td>@twitter</td>
+                        </tr>
+                      </tbody>
+                    </table> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- modal -->
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add New Nurse</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #nurseForm="ngForm">
+          <div class="row g-2">
+            <div class="col-12 col-md-6">
+             <div class="form-fields">
+              <p>Full Name:</p>
+              <input type="text" #fullname="ngModel" name="fullname" [(ngModel)]="nurse.fullname">
+             </div>
+            </div>
+            <!--  -->
+            <div class="col-12 col-md-6">
+              <div class="form-fields">
+               <p>Email:</p>
+               <input type="text" #email="ngModel" name="email" [(ngModel)]="nurse.email">
+              </div>
+             </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+               <p>Phone No:</p>
+               <input type="text" #phonenumber="ngModel" name="phone" [(ngModel)]="nurse.phone" >
+              </div>
+             </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+               <p>Sex</p>
+               <input type="text" #sex="ngModel" name="sex" [(ngModel)]="nurse.sex" >
+              </div>
+             </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+               <p>D.O.B</p>
+               <input type="Date"#dob="ngModel" name="dob" [(ngModel)]="nurse.dob" >
+              </div>
+             </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+               <p>Blood Group</p>
+               <input type="text" #bloodGroup="ngModel" name="blood" [(ngModel)]="nurse.bloodGroup">
+              </div>
+             </div>
+             <!--  -->
+          </div>
+          <!-- end of row -->
+          <div class="row mt-2 g-2">
+            <div class="col-12">
+              <div class="form-fields">
+               <p>Address</p>
+               <input type="text" #address="ngModel" name="address" [(ngModel)]="nurse.address" class="w-100">
+              </div>
+             </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+               <p>Country</p>
+               <input type="text" #country="ngModel" name="country" [(ngModel)]="nurse.country">
+              </div>
+             </div>
+             <!--  -->
+             <div class="col-12 col-md-6">
+              <div class="form-fields">
+               <p>State</p>
+               <input type="text" #state="ngModel" name="state" [(ngModel)]="nurse.state">
+              </div>
+             </div>
+             <!--  -->
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm rounded-5 btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-sm rounded-5  btn-warning" (click)="create()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header text-light  bg-danger">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Nurse's Details</h1>
+        <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="" width="50" height="50" alt="">
+        <div class="details">
+          <p class="fw-bold mt-2">Name:<span class="fw-light float-end">{{selectedItem.fullname}} </span> </p>
+          <p class="fw-bold mt-2">Email:<span class="fw-light float-end">{{selectedItem.email}} </span> </p>
+          <p class="fw-bold mt-2">Phone Number:<span class="fw-light float-end">{{selectedItem.phone}} </span> </p>
+          <p class="fw-bold mt-2">Gender:<span class="fw-light float-end">{{selectedItem.sex}} </span> </p>
+          <p class="fw-bold mt-2">Age:<span class="fw-light float-end">{{selectedItem.age}} </span> </p>
+          <p class="fw-bold mt-2">Date Of Birth:<span class="fw-light float-end">{{selectedItem.dob}} </span> </p>
+          <p class="fw-bold mt-2">Blood Group:<span class="fw-light float-end">{{selectedItem.bloodGroup}} </span> </p>
+          <p class="fw-bold mt-2">Address: <span class="fw-light float-end">{{selectedItem.address}} </span> </p>
+          <p class="fw-bold mt-2">State:<span class="fw-light float-end">{{selectedItem.state}} </span> </p>
+          <p class="fw-bold mt-2">Country:<span class="fw-light float-end">{{selectedItem.country}} </span> </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm rounded-5 btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

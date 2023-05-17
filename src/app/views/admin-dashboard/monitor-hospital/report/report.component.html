@@ -1,0 +1,370 @@
+<div class="sidebarr text-light" #side>
+  <div class="mail text-center pb-3 w-100">
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+      alt=""
+      class="avatar img-t"
+    />
+    <h5>ADMIN</h5>
+  </div>
+
+  <div class="sidebar align-items-start d-block">
+    <a href="/admin/dashboard"><i class="bi-speedometer2"></i> Dashboard</a>
+    <a href="/admin/doctors"><i class="bi-card-heading" routerLink="/admin/doctors"></i>Doctors</a>
+    <a href="/admin/nurses"><i class="bi-card-heading"routerLink="/admin/nurses"></i>Nurse</a>
+    <a href="/admin/patient"><i class="bi-person-heart"routerLink="/admin/patient"></i> Patients</a>
+    <a href="/admin/departments"><i class="bi-card-heading" routerLink="/admin/departments"></i>Department</a>
+    <a href="/admin/appointments"><i class="bi-card-list"routerLink="/admin/appointments"></i>Appointment List</a>
+    <div class="dropdown-sidebar">
+      <a ><i class="bi-card-heading"></i>Monitor Hospital <span class="float-end"><i class="bi-caret-down-fill"></i></span></a>
+      <div class="dropdown-sidebar-content">
+        <a href="/admin/monitor-hospital/blood-bank"><small>Blood Bank</small> </a>
+        <a href="/admin/monitor-hospital/report" class="active" ><small>Report</small> </a>
+        <a ><small>Medicine</small> </a>
+        <a href="/admin/monitor-hospital/equipments"><small>Equipments</small> </a>
+        <a><small>Mail</small> </a>
+        <a><small>Settings</small> </a>
+      </div>
+    </div>
+    <a href=""><i class="bi-box-arrow-left"></i>Log Out</a>
+  </div>
+</div>
+<div class="content" #cont>
+  <div class="page-wrapper">
+    <nav class="navbar border border-bottom border-1 shadow-sm">
+      <div class="navbar-header">
+        <div class="d-block">
+          <i class="navbar-toggler-icon" (click)="toggle()"></i>
+        </div>
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          </li>
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+              <div class="dropdown">
+                <div class="dropdown-content">
+                  <a href="#">
+                    <i class="bi-person-circle me-2 f"></i>Profile</a
+                  >
+                  <a href="#"><i class="bi-bell me-2"></i>Notifications</a>
+                  <a href="#"><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <br /><br />
+
+    <div class="page-content ms-3 me-2">
+      <h3>Reports</h3>
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button
+                  class="accordion-button shadow-none text-white"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#panelsStayOpen-collapse1"
+                  aria-expanded="true"
+                  aria-controls="panelsStayOpen-collapse1"
+                >
+                  Daily Doctor's Report
+                </button>
+              </h2>
+              <div
+                id="panelsStayOpen-collapse1"
+                class="accordion-collapse collapse show"
+                aria-labelledby="panelsStayOpen-headingOne"
+              >
+
+                <div class="accordion-body">
+                  <table>
+                    <tr>
+                      <th>Doctors Name</th>
+                      <th>Report on</th>
+                      <th>Action</th>
+                    </tr>
+                      <tr>
+                        <td>Dr. John</td>
+                        <td>12/12/2021</td>
+                        <td><button class="btn btn-primary btn-sm">View</button></td>
+                      </tr>
+                      <tr>
+                        <td>Dr. John</td>
+                        <td>12/12/2021</td>
+                        <td><button class="btn btn-primary btn-sm">View</button></td>
+                      </tr>
+                      <tr>
+                        <td>Dr. John</td>
+                        <td>12/12/2021</td>
+                        <td><button class="btn btn-primary btn-sm">View</button></td>
+                      </tr>
+                      <tr>
+                        <td>Dr. John</td>
+                        <td>12/12/2021</td>
+                        <td><button class="btn btn-primary btn-sm">View</button></td>
+                      </tr>
+                  </table>
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+      <br /><br />
+      <h4 class="bg-secondary text-light w-100 p-3">All Patients Report</h4>
+      <br />
+
+      <div class="row mt-3">
+        <div class="col-12 col-md-6">
+          <h5>Birth Report</h5>
+          <br />
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button
+                  class="accordion-button bg-warning text-light"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#panelsStayOpen-collapse2"
+                  aria-expanded="true"
+                  aria-controls="panelsStayOpen-collapseOne"
+                >
+              Recent  Birth Report                </button>
+              </h2>
+              <div
+                id="panelsStayOpen-collapse2"
+                class="accordion-collapse  collapse show"
+                aria-labelledby="panelsStayOpen-headingOne"
+              >
+                <div class="accordion-body">
+                  <div class="card">
+                    <div class="card-body">
+                      <table>
+                        <tr>
+                          <th>Patient</th>
+                          <th>Doctor Name</th>
+                          <th>Birthed</th>
+                          <th>Date</th>
+                          <th class="text-end">Actions</th>
+                        </tr>
+                        <tr *ngFor="let i of listofbirthreports">
+                          <td>{{i.patientName}}</td>
+                          <td>{{i.doctorName}}</td>
+                          <td>{{i.gavebirthTo}}</td>
+                          <td>{{i.date}}</td>
+                          <td class="text-end">
+                            <button
+                          class="btn btn-sm rounded-0 btn-warning"
+                          title="View More"
+                          (click)="select(i)"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop2"
+                        >
+                          <i class="bi bi-eye"></i>
+                        </button>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="w-100 text-end">
+                   <a href="admin/monitor-hospital/report/birth-report"> <p class=" mt-2">View More</p></a>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="col-12 col-md-6">
+          <h5>Death Report</h5>
+          <br />
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button
+                  class="accordion-button bg-danger text-light"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#panelsStayOpen-collapse3"
+                  aria-expanded="true"
+                  aria-controls="panelsStayOpen-collapseOne"
+                >
+               Recent Death Report
+                </button>
+              </h2>
+              <div
+                id="panelsStayOpen-collapse3"
+                class="accordion-collapse collapse show"
+                aria-labelledby="panelsStayOpen-headingOne"
+              >
+              <div class="accordion-body">
+                <div class="card">
+                  <div class="card-body">
+                    <table>
+                      <tr>
+                        <th>Patient</th>
+                        <th>Cause</th>
+                        <th>Date</th>
+                        <th class="text-end">Actions</th>
+                      </tr>
+                      <tr *ngFor="let i of listofdeathreports">
+                        <td>{{i.patientName}}</td>
+                        <td>{{i.diedOf}}</td>
+                        <td>{{i.date}}</td>
+                        <td class="text-end">
+                          <button
+                          class="btn btn-sm rounded-0 btn-danger"
+                          title="View More"
+                          (click)="select(i)"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop2"
+                        >
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="w-100 text-end">
+                  <a href="admin/monitor-hospital/report/death-report"> <p class=" mt-2">View More</p></a>
+                 </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <br><br>
+      <div class="col-12">
+        <h5>Opration Report</h5>
+        <br />
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+              <button
+                class="accordion-button bg-gradient text-light"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapse4"
+                aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseOne"
+              >
+               Recent Opration Report
+              </button>
+            </h2>
+            <div
+              id="panelsStayOpen-collapse4"
+              class="accordion-collapse collapse show"
+              aria-labelledby="panelsStayOpen-headingOne"
+            >
+              <div class="accordion-body p-0">
+                <table>
+                  <div class="accordion-body">
+                    <div class="card">
+                      <div class="card-body">
+                        <table>
+                          <tr>
+                            <th>Patient</th>
+                            <th>Surgeon Names/Name</th>
+                            <th>Operation</th>
+                            <th>Date</th>
+                            <th class="text-end">Actions</th>
+                          </tr>
+                          <tr *ngFor="let i of listofoperationreports">
+                            <td>{{i.patientName}}</td>
+                            <td>{{i.surgeonNames}}</td>
+                            <td>{{i.operationType}}</td>
+                            <td>{{i.date}}</td>
+                            <td class="text-end">
+                              <button
+                          class="btn btn-sm rounded-0 btn-success"
+                          title="View More"
+                          (click)="select(i)"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop2"
+                        >
+                          <i class="bi bi-eye"></i>
+                        </button>
+                            </td>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="w-100 text-end">
+                      <a href="admin/monitor-hospital/report/operation-report"> <p class=" mt-2">View More</p></a>
+                     </div>
+                  </div>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+    </div>
+    <!--  -->
+    </div>
+  </div>
+
+<!-- modal -->
+<!-- Button trigger modal -->
+
+
+
+
+
+<!-- View More Modal -->
+
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header text-light  bg-dark">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{selectedReport.patientName}} Birth Report</h1>
+        <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="" width="50" height="50" alt="">
+        <div class="details">
+          <p class="fw-bold mt-2">Name:<span class="fw-light float-end">{{selectedReport.patientName}} </span> </p>
+          <p class="fw-bold mt-2">Email:<span class="fw-light float-end">{{selectedReport.email}} </span> </p>
+          <p class="fw-bold mt-2">Phone Number:<span class="fw-light float-end">{{selectedReport.phoneNumber}} </span> </p>
+          <p class="fw-bold mt-2">Gender:<span class="fw-light float-end">{{selectedReport.sex}} </span> </p>
+          <p class="fw-bold mt-2">Birthed:<span class="fw-light float-end">{{selectedReport.gavebirthTo}} </span> </p>
+          <p class="fw-bold mt-2">Age:<span class="fw-light float-end">{{selectedReport.patientAge}} </span> </p>
+          <p class="fw-bold mt-2">Date Of Delivery:<span class="fw-light float-end">{{selectedReport.date}} </span> </p>
+          <p class="fw-bold mt-2">Time of Delivery:<span class="fw-light float-end">{{selectedReport.time}} </span> </p>
+          <p class="fw-bold mt-2">Doctor Incharge:<span class="fw-light float-end">{{selectedReport.doctorName}} </span> </p>
+          <p class="fw-bold mt-2">Address: <span class="fw-light float-end">{{selectedReport.address}} </span> </p>
+          <p class="fw-bold mt-2">State:<span class="fw-light float-end">{{selectedReport.state}} </span> </p>
+          <p class="fw-bold mt-2">Country:<span class="fw-light float-end">{{selectedReport.country}} </span> </p>
+          <p class="fw-bold mt-2">Birth Process:<span class="fw-light float-end">{{selectedReport.birthType}} </span> </p>
+          <p class="fw-bold mt-2">Baby's Weight:<span class="fw-light float-end">{{selectedReport.weight}} </span> </p>
+          <p class="fw-bold mt-2">Baby's Height:<span class="fw-light float-end">{{selectedReport.height}} </span> </p>
+          <p class="fw-bold mt-2">Baby's Temperature:<span class="fw-light float-end">{{selectedReport.temperature}} </span> </p>
+          <p class="fw-bold mt-2">Baby's Blood Pressure:<span class="fw-light float-end">{{selectedReport.bloodPressure}} </span> </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm rounded-5 btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

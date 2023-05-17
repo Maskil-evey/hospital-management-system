@@ -1,0 +1,320 @@
+<div class="page-wrapper">
+  <nav class="navbar shadow border border-bottom border-1">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div class="d-flex">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/8166/8166558.png"
+            alt="doctor"
+            class="img-icon"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasScrolling"
+            aria-controls="offcanvasScrolling"
+          />
+          <div class="img ms-5 me-2"></div>
+          <a class="navbar-brand fw-bold fs-4" href="#"
+            >Nate's <span class="fw-light">HealthCare</span></a
+          >
+        </div>
+      </div>
+      <div class="ul">
+        <ul class="d-flex list-unstyled me-5 mt-4">
+          <li class="nav-item search me-3">
+            <i class="bi-search fs-5"></i>
+          </li>
+          <li class="nav-item me-3">
+            <div class="circle">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                alt=""
+                class="avatar img-t"
+              />
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <p class="dropbtn text-dark">
+                {{getPatientInfo.fullname}}<span
+                  ><i class="bi-caret-down ms-2 pt-4"></i
+                ></span>
+              </p>
+              <div class="dropdown-content">
+                <a href="#"> <i class="bi-person-circle me-2"></i>Profile</a>
+                <a href="#"><i class="bi-bell me-2"></i>Notifications</a>
+                <a href="#"><i class="bi-box-arrow-left me-2"></i>Log Out</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+    class="offcanvas offcanvas-start"
+    data-bs-scroll="true"
+    data-bs-backdrop="false"
+    tabindex="-1"
+    id="offcanvasScrolling"
+    aria-labelledby="offcanvasScrollingLabel"
+  >
+    <div class="offcanvas-header d-block text-center">
+      <!-- <p>Dr. Favour Daisi</p> -->
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+        alt="profile"
+        class="profile"
+      />
+
+      <button
+        type="button"
+        class="btn-close float-end"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="">
+      <div class="mail text-center pb-3 w-100">
+        <p class="" id="offcanvasScrollingLabel">
+          {{ getPatientInfo.fullname }}
+        </p>
+        <p>18/09/1982</p>
+      </div>
+
+      <div class="sidebar align-items-start d-block">
+        <a href="patient/dashboard"
+          ><i class="bi-speedometer2"></i> Dashboard</a
+        >
+        <a href="patient/report"><i class="bi-person-heart"></i> My Report</a>
+        <a class="active"><i class="bi-card-list"></i>My Appointment</a>
+        <a (click)="logout()"
+          ><i class="bi bi-arrow-down-left-square"></i> Logout</a
+        >
+      </div>
+      <div class="d-flex">
+        <div class="image"></div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="page-content ms-3 me-2">
+    <div class="container-fluid">
+      <div class="row g-2 justify-content-center">
+        <div class="col-12 col-md-9">
+          <div class="card shadow">
+            <div class="card-header">
+              <h4>My Appointments</h4>
+            </div>
+            <div class="card-body">
+              <table class="table-striped table">
+                <thead class="bg-light text-dark">
+                  <tr>
+                    <th>ID</th>
+                    <th>Doctor</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i of getPatientsAppointment">
+                    <th scope="row">{{ i.id }}</th>
+                    <td>{{ i.doctorName }}</td>
+                    <td>{{ i.time }}</td>
+                    <td>{{ i.date }}</td>
+                    <td>{{ i.reason }}</td>
+                    <td>{{ i.status }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+
+       <!-- View each doctors schedule -->
+
+       <div class="col-12 mt-5 bg-secondary p-2 text-light text-center">
+        <h4>View Doctors Schedule</h4>
+        <div class="justify-content-center">
+          <select name="" class="p-1" [(ngModel)]="doctorName" id="">
+            <option value="">Choose Doctor</option>
+            <option *ngFor="let i of getAllDoctors" [value]="i.fullname">
+              Dr. {{ i.fullname }}
+            </option>
+          </select>
+
+          <button
+            type="button"
+            name="button"
+            class="btn btn-sm ms-1 btn-danger bi bi-eye"
+            (click)="viewSchedule()"
+            data-bs-target="#staticBackdrop2"
+            data-bs-toggle="modal"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <br /><br />
+
+
+      <!--  -->
+      <div class="row">
+        <div class="col-12 col-md-6 mx-auto">
+          <div class="container mt-5">
+            <h3 class="text-center">Appointment Form</h3>
+            <form #appointmentForm="ngForm">
+              <div class="form-group mt-4">
+                <label for="phone">Choose Doctor</label>
+                <select
+                  name="doctor"
+                  id=""
+                  #doctor="ngModel"
+                  [(ngModel)]="newAppiontment.doctorName"
+                >
+                  <option [value]="getPatientInfo.assignedDoctor">
+                    Assigned Doctor
+                  </option>
+                  <option *ngFor="let i of getAllDoctors" [value]="i.fullname">
+                    Dr. {{ i.fullname }}
+                    <span class="fw-bold"> {{ i.department }} </span>
+                  </option>
+                </select>
+              </div>
+
+              <small class="text-danger"
+                >*It is Advisible to have an appointment with your assigned
+                doctor, for he/she is more likely to accept appointments request
+                from their patients. Only send appointments request with doctors
+                that knows about your ailment, because our doctors arre very
+                busy</small
+              >
+              <div class="row">
+                <div class="col-6 mt-4">
+                  <label for="date">Date </label>
+                  <input
+                    type="date"
+                    required
+                    name="date"
+                    #date="ngModel"
+                    [(ngModel)]="newAppiontment.date"
+                  />
+                </div>
+                <div class="col-6 mt-4">
+                  <label for="time"> Time </label>
+                  <input
+                    type="time"
+                    required
+                    name="date"
+                    #time="ngModel"
+                    [(ngModel)]="newAppiontment.time"
+                  />
+                </div>
+                <div></div>
+
+                <textarea
+                  name="reason"
+                  id=""
+                  #reason="ngModel"
+                  [(ngModel)]="newAppiontment.reason"
+                  class="w-100 mt-3"
+                  required
+                >
+                  Description</textarea
+                >
+              </div>
+              <div class="d-grid mt-2">
+                <button
+                  type="button"
+                  name="button"
+                  class="btn btn-danger"
+                  (click)="addAppointment()"
+                >
+                  Send
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="customer position-fixed bottom-0 p-3 end-0">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/4444/4444501.png"
+        title="Tech support"
+        width="70px"
+        alt=""
+      />
+    </div>
+  </div>
+</div>
+
+<!-- Modal to show Doctors appointment schedule -->
+<div
+  *ngIf="doctorName != ''"
+  class="modal fade"
+  id="staticBackdrop2"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header text-light bg-danger">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Schedule</h1>
+        <button
+          type="button"
+          class="btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex">
+          <div class="image"></div>
+        </div>
+        <div class="details">
+          <h4 class="text-center">Dr. {{ doctorName }}</h4>
+          <table *ngIf="viewAppointment.length > 0" class="">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of viewAppointment">
+                <td>{{ i.date }}</td>
+                <td>{{ i.time }}</td>
+                <td>{{ i.status }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf="viewAppointment.length == 0" class="text-center">
+            <p>
+              <i class="bi bi-exclamation-circle"></i>
+              No Appointments
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-sm rounded-5 btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
